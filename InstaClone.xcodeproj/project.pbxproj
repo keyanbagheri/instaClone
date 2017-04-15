@@ -14,6 +14,7 @@
 		67331B0E1EA0BD1E00B0005A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67331B0C1EA0BD1E00B0005A /* LaunchScreen.storyboard */; };
 		678D83C41EA1FC510038236A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 678D83C31EA1FC510038236A /* GoogleService-Info.plist */; };
 		6794BC8E1EA201C4008E0DA2 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */; };
+		67C5D5F21EA240DF008C2535 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C5D5F11EA240DF008C2535 /* User.swift */; };
 		AD32C4AB402FA78B5BBA5E2A /* Pods_InstaClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32285BEE87434148DF6C7AE8 /* Pods_InstaClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		67331B0F1EA0BD1E00B0005A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		678D83C31EA1FC510038236A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
+		67C5D5F11EA240DF008C2535 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A432F85EA74D0DB5CDA17ED7 /* Pods-InstaClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaClone.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstaClone/Pods-InstaClone.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				67331B031EA0BD1E00B0005A /* AppDelegate.swift */,
+				67C5D5F11EA240DF008C2535 /* User.swift */,
 				67331B051EA0BD1E00B0005A /* ViewController.swift */,
 				67331B071EA0BD1E00B0005A /* Main.storyboard */,
 				6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */,
@@ -222,6 +225,7 @@
 			files = (
 				67331B061EA0BD1E00B0005A /* ViewController.swift in Sources */,
 				67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */,
+				67C5D5F21EA240DF008C2535 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
