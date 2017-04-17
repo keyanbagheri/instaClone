@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>183442592479-v3enpb9mnejem7669h8seqhfg5dcq5mu.apps.googleusercontent.com</string>
+	<string>50939952384-u9qev5d5mnlje9mplng2pc4qv46bhbbi.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.183442592479-v3enpb9mnejem7669h8seqhfg5dcq5mu</string>
+	<string>com.googleusercontent.apps.50939952384-u9qev5d5mnlje9mplng2pc4qv46bhbbi</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCIoh_KjHaEPwc3qWZrWzjnJQsrPez5RT4</string>
+	<string>AIzaSyCElvnrkCSAyaNXiuX3AwW3KeLt1OrG6Q0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>183442592479</string>
+	<string>50939952384</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>callmekey.SimpleFirebase</string>
+	<string>teamHearts.InstaClone</string>
 	<key>PROJECT_ID</key>
-	<string>simplefirebaseios</string>
+	<string>instaclone-abf88</string>
 	<key>STORAGE_BUCKET</key>
-	<string>simplefirebaseios.appspot.com</string>
+	<string>instaclone-abf88.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:183442592479:ios:a5e897ad6fb45c86</string>
+	<string>1:50939952384:ios:8ef3f11ae16e49d6</string>
 	<key>DATABASE_URL</key>
-	<string>https://simplefirebaseios.firebaseio.com</string>
+	<string>https://instaclone-abf88.firebaseio.com</string>
 </dict>
 </plist>
