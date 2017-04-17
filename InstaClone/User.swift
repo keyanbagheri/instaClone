@@ -9,24 +9,28 @@
 import Foundation
 
 class User {
-    var id: String?
-    var email : String?
-    var name : String?
-    var desc : String?
-    var profileImageURL : String?
+
+    var id: String
+    var email : String
+    var name : String
+    var screenName : String
+    var desc : String
+    var profileImageURL : String
     
     init( ) {
         id = ""
         email = ""
         name = ""
+        screenName = ""
         desc = ""
         profileImageURL = ""
     }
     
-    init(withAnId : String, anEmail : String, aName : String, aDesc : String, aProfileImageURL : String) {
+    init(withAnId : String, anEmail : String, aName : String, aScreenName : String, aDesc : String, aProfileImageURL : String) {
         id = withAnId
         email = anEmail
         name = aName
+        screenName = aScreenName
         desc = aDesc
         profileImageURL = aProfileImageURL
     }
@@ -34,6 +38,7 @@ class User {
     init(dictionary: [String: AnyObject]) {
         id = (dictionary["id"] as? String)!
         name = (dictionary["name"] as? String)!
+        screenName = "Anonymous"
         email = (dictionary["email"] as? String)!
         desc = "I'm using InstaClone"
         profileImageURL = (dictionary["profileImageUrl"] as? String)!
