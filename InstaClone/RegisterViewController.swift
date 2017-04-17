@@ -87,19 +87,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 print(err!)
                 return
             }
-            
-            let user = User(dictionary: values as [String : AnyObject])
+            //let user = User(dictionary: values as [String : AnyObject])
             // This setter potentially crashes if keys don't match
-            user.setValuesForKeys(values)
-            
+            //user.setValuesForKeys(values)
             //self.dismiss(animated: true, completion: nil)
         })
     }
     
     func registerButtonToNextVC(){
-        let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
+        let currentStoryboard = UIStoryboard (name: "Main", bundle: Bundle.main)
         
-        let initController = currentStoryboard.instantiateViewController(withIdentifier: "MessagesViewController")
+        let initController = currentStoryboard.instantiateViewController(withIdentifier: "Main.storyboard")
         present(initController, animated: true, completion: nil)
     }
 

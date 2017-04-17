@@ -66,7 +66,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func goToNextVC(){
-        let initController = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "MessagesViewController")
+        let initController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Main.storyboard")
         present(initController, animated: true, completion: nil)
     }
     
