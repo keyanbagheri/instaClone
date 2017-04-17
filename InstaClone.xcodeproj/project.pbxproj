@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		21B8A0AB1EA474B400E48200 /* FacebookLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */; };
+		21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AD1EA482AD00E48200 /* Instagram.swift */; };
 		21E80CF51EA357500014A0BC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E80CF41EA357500014A0BC /* RegisterViewController.swift */; };
 		21E80CF81EA362980014A0BC /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E80CF71EA362980014A0BC /* MessagesViewController.swift */; };
 		21E80CFA1EA36C8A0014A0BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21E80CF91EA36C8A0014A0BC /* GoogleService-Info.plist */; };
@@ -22,6 +23,7 @@
 
 /* Begin PBXFileReference section */
 		21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLogInViewController.swift; sourceTree = "<group>"; };
+		21B8A0AD1EA482AD00E48200 /* Instagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
 		21E80CF41EA357500014A0BC /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		21E80CF71EA362980014A0BC /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		21E80CF91EA36C8A0014A0BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		21B8A0AC1EA4825C00E48200 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21B8A0AD1EA482AD00E48200 /* Instagram.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		5704EC229919BB09220F9E65 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +117,7 @@
 		67331B021EA0BD1E00B0005A /* InstaClone */ = {
 			isa = PBXGroup;
 			children = (
+				21B8A0AC1EA4825C00E48200 /* Model */,
 				67331B031EA0BD1E00B0005A /* AppDelegate.swift */,
 				21B8A0A81EA4732D00E48200 /* View */,
 				21B8A0A91EA4733C00E48200 /* Controller */,
@@ -248,6 +259,7 @@
 				21E80CFC1EA36D8D0014A0BC /* LogInViewController.swift in Sources */,
 				21B8A0AB1EA474B400E48200 /* FacebookLogInViewController.swift in Sources */,
 				67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */,
+				21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */,
 				67C5D5F21EA240DF008C2535 /* User.swift in Sources */,
 				21E80CF51EA357500014A0BC /* RegisterViewController.swift in Sources */,
 			);

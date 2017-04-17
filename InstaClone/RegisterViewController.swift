@@ -21,11 +21,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func registerButtonTapped(_ sender: Any) {
         handleRegister()
-        
-        let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
-        
-        let initController = currentStoryboard.instantiateViewController(withIdentifier: "MessagesViewController")
-        present(initController, animated: true, completion: nil)
     }
     
     @IBAction func signInButtonTapped(_ sender: Any) {
@@ -46,12 +41,19 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             print("Form is not valid")
             return
         }
+        if email == "" || password == "" || name == "" {
+            warningPopUp(withTitle: "Input Error", withMessage: "Name, Email or Password Can't Be Empty")
+            return
+        }
+        
+        
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {
                 print(error!)
                 return
             }
+            self.registerButtonToNextVC()
             guard let uid = user?.uid else {
                 return
             }
@@ -92,6 +94,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             
             //self.dismiss(animated: true, completion: nil)
         })
+    }
+    
+    func registerButtonToNextVC(){
+        let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
+        
+        let initController = currentStoryboard.instantiateViewController(withIdentifier: "MessagesViewController")
+        present(initController, animated: true, completion: nil)
     }
 
     

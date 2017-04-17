@@ -34,6 +34,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             print("Form is not valid")
             return
         }
+
+        if email == "" || password == ""{
+            warningPopUp(withTitle: "Input Error", withMessage: "Email or Password Can't Be Empty")
+            return
+        }
+        
+        
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
                 print(error!)
