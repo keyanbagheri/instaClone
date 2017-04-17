@@ -87,9 +87,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 print(err!)
                 return
             }
+            
             //let user = User(dictionary: values as [String : AnyObject])
             // This setter potentially crashes if keys don't match
             //user.setValuesForKeys(values)
+
             //self.dismiss(animated: true, completion: nil)
         })
     }
