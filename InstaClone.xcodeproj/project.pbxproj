@@ -72,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				67FAFB8A1EA4A91E0025C03C /* PhotoCollectionViewCell.swift */,
-				67C5D5F11EA240DF008C2535 /* User.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -92,6 +91,7 @@
 		21B8A0AC1EA4825C00E48200 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				67C5D5F11EA240DF008C2535 /* User.swift */,
 				67FAFB861EA4A9020025C03C /* Photo.swift */,
 				21B8A0AD1EA482AD00E48200 /* Instagram.swift */,
 			);
