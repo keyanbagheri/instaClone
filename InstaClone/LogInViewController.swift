@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -24,6 +24,8 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         handleLogin()
     }
     
@@ -37,9 +39,25 @@ class LogInViewController: UIViewController {
                 print(error!)
                 return
             }
-           self.goToNextVC()
+            self.goToNextVC()
+            self.clearTextFieldText()
         })
     }
+    func clearTextFieldText(){
+        emailTextField.text = ""
+        passwordTextField.text = ""
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
     func goToNextVC(){
         let initController = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "MessagesViewController")
         present(initController, animated: true, completion: nil)

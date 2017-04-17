@@ -15,7 +15,7 @@
         <!--Log In View Controller-->
         <scene sceneID="X6o-VV-rqE">
             <objects>
-                <viewController id="nxW-EM-FQL" customClass="LogInViewController" customModule="InstaClone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogInViewController" id="nxW-EM-FQL" customClass="LogInViewController" customModule="InstaClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ks3-dx-cwa"/>
                         <viewControllerLayoutGuide type="bottom" id="u8O-Xw-s5a"/>
@@ -147,10 +147,10 @@
             </objects>
             <point key="canvasLocation" x="861.60000000000002" y="-260.41979010494754"/>
         </scene>
-        <!--View Controller-->
+        <!--Facebook Log In View Controller-->
         <scene sceneID="Ohe-Df-qwd">
             <objects>
-                <viewController id="Zza-fU-rgF" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FacebookLogInViewController" id="Zza-fU-rgF" customClass="FacebookLogInViewController" customModule="InstaClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yDd-tq-ZTk"/>
                         <viewControllerLayoutGuide type="bottom" id="W3i-vL-Gbe"/>
@@ -250,6 +250,9 @@
                                         </fragment>
                                     </attributedString>
                                 </state>
+                                <connections>
+                                    <action selector="signInButton:" destination="Zza-fU-rgF" eventType="touchUpInside" id="Bg9-dF-WT1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -293,7 +296,7 @@
         <!--Register View Controller-->
         <scene sceneID="roh-dk-vxY">
             <objects>
-                <viewController id="tTt-wN-tUT" customClass="RegisterViewController" customModule="InstaClone" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterViewController" id="tTt-wN-tUT" customClass="RegisterViewController" customModule="InstaClone" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aQ9-Cd-2b8"/>
                         <viewControllerLayoutGuide type="bottom" id="hwj-ly-Odr"/>

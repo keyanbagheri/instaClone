@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     var messagesController: MessagesViewController?
     @IBOutlet weak var profileImageView: UIImageView!
@@ -34,7 +34,9 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        nameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectorProfileImageView)))
         // Do any additional setup after loading the view, typically from a nib.
@@ -129,7 +131,11 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         }
         
         if let selectedImage = selectedImageFromPicker {
+            
             profileImageView.image = selectedImage
+            profileImageView.layer.cornerRadius = 99
+            profileImageView.layer.masksToBounds = true
+            
         }
         
         dismiss(animated: true, completion: nil)

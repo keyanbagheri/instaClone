@@ -4,7 +4,9 @@
 //
 //  Created by Arkadijs Makarenko on 16/04/2017.
 //  Copyright © 2017 teamHearts. All rights reserved.
-//
+// TEST VIEW CONTROLLER
+// TEST VIEW CONTROLLER
+// TEST VIEW CONTROLLER
 
 import UIKit
 
@@ -22,3 +24,6 @@ class MessagesViewController: UIViewController {
     }
 
 }
+// TEST VIEW CONTROLLER
+// TEST VIEW CONTROLLER
+// TEST VIEW CONTROLLER
