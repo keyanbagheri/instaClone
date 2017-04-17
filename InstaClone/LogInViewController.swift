@@ -43,7 +43,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil {
-                print(error!)
+                self.warningPopUp(withTitle: "Input Error", withMessage: "Email or Password is incorrect")
                 return
             }
             self.goToNextVC()
