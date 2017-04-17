@@ -11,23 +11,26 @@ import Foundation
 class User {
     var id: String
     var email : String
+    var name : String
     var screenName : String
     var desc : String
-    var imageURL : String
+    var profileImageURL : String
     
     init( ) {
         id = ""
         email = ""
+        name = ""
         screenName = ""
         desc = ""
-        imageURL = ""
+        profileImageURL = ""
     }
     
-    init(anId : String, anEmail : String, aScreenName : String, aDesc : String, anImageURL : String) {
-        id = anId
+    init(withAnId : String, anEmail : String, aName : String, aScreenName : String, aDesc : String, aProfileImageURL : String) {
+        id = withAnId
         email = anEmail
+        name = aName
         screenName = aScreenName
         desc = aDesc
-        imageURL = anImageURL
+        profileImageURL = aProfileImageURL
     }
 }
