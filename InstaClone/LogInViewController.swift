@@ -18,20 +18,13 @@ class LogInViewController: UIViewController {
     @IBAction func logInButtonTapped(_ sender: Any) {
         handleLogin()
         print("login sucessfull")
-        let signUpVC = storyboard?.instantiateViewController(withIdentifier: "MessagesViewController")
-            navigationController?.pushViewController(signUpVC!, animated: true)
-    
     }
     
     var messagesController: MessagesViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        if let currentUser = FIRAuth.auth()?.currentUser {
-        //            print("Some user have logged in")
-        //        }
-        // Do any additional setup after loading the view.
+        handleLogin()
     }
     
     func handleLogin() {
@@ -44,11 +37,13 @@ class LogInViewController: UIViewController {
                 print(error!)
                 return
             }
-            // Successfullu logged in our user
-            //self.messagesController?.fetchUserAndSetupNavBarTitle()
-            
-            self.dismiss(animated: true, completion: nil)
+           self.goToNextVC()
         })
     }
+    func goToNextVC(){
+        let initController = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "MessagesViewController")
+        present(initController, animated: true, completion: nil)
+    }
+    
     
 }

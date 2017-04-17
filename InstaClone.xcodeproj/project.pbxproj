@@ -90,12 +90,12 @@
 				67C5D5F11EA240DF008C2535 /* User.swift */,
 				21E80CF71EA362980014A0BC /* MessagesViewController.swift */,
 				21E80CF41EA357500014A0BC /* RegisterViewController.swift */,
+				21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */,
 				6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */,
 				67331B0A1EA0BD1E00B0005A /* Assets.xcassets */,
 				67331B0C1EA0BD1E00B0005A /* LaunchScreen.storyboard */,
 				21E80CF91EA36C8A0014A0BC /* GoogleService-Info.plist */,
 				67331B0F1EA0BD1E00B0005A /* Info.plist */,
-				21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */,
 			);
 			path = InstaClone;
 			sourceTree = "<group>";

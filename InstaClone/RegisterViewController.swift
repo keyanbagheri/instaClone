@@ -23,9 +23,9 @@ class RegisterViewController: UIViewController {
         handleRegister()
         
         let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
-        if let targetViewController = currentStoryboard .instantiateViewController(withIdentifier: "MessagesViewController") as? MessagesViewController {
-            navigationController?.pushViewController(targetViewController, animated: true)
-        }
+        
+        let initController = currentStoryboard.instantiateViewController(withIdentifier: "MessagesViewController")
+        present(initController, animated: true, completion: nil)
     }
     
     @IBAction func signInButtonTapped(_ sender: Any) {
@@ -37,7 +37,6 @@ class RegisterViewController: UIViewController {
         
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectorProfileImageView)))
-        
         // Do any additional setup after loading the view, typically from a nib.
     }
     func handleRegister() {
@@ -88,38 +87,11 @@ class RegisterViewController: UIViewController {
             let user = User(dictionary: values as [String : AnyObject])
             // This setter potentially crashes if keys don't match
             user.setValuesForKeys(values)
-            //self.messagesController?.setupNavBarWithUser(user: user)
             
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
         })
     }
-//    private func registerUserIntoDatabaseWithUID(_ uid: String, values: [String: AnyObject]) {
-//        let ref = FIRDatabase.database().reference()
-//        let usersReference = ref.child("users").child(uid)
-//        
-//        usersReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-//            
-//            if err != nil {
-//                print(err!)
-//                return
-//            }
-//            
-//            //  self.messagesController?.navigationItem.title = values["name"] as? String
-//            let user = User(dictionary: values)
-//            self.messagesController?.setupNavBarWithUser(user)
-//            
-//            self.dismiss(animated: true, completion: nil)
-//        })
-//    }
-    
-//    @IBAction func registerButtonTapped(_ sender: Any) {
-//        handleRegister()
-//        
-//        let currentStoryboard = UIStoryboard (name: "Main", bundle: Bundle.main)
-//        if let targetViewController = currentStoryboard .instantiateViewController(withIdentifier: "MessagesViewController") as? MessagesViewController {
-//            navigationController?.pushViewController(targetViewController, animated: true)
-//        }
-//    }
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -133,7 +105,6 @@ class RegisterViewController: UIViewController {
     }
     
 }
-
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
