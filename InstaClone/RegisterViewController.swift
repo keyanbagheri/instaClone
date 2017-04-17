@@ -50,7 +50,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
             if error != nil {
-                print(error!)
+                self.warningPopUp(withTitle: "Input Error", withMessage: "Email or Password Form is not Valid")
                 return
             }
             self.registerButtonToNextVC()
