@@ -12,6 +12,9 @@ import FirebaseDatabase
 import FirebaseStorage
 
 class ProfileViewController: UIViewController {
+    
+    @IBOutlet weak var wholeView: UIView!
+    
     @IBOutlet weak var postsCountLabel: UILabel!
     
     @IBOutlet weak var followersCountLabel: UILabel!
@@ -45,13 +48,11 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        wholeView.isHidden = true
         
         ref = FIRDatabase.database().reference()
         listenToFirebase()
-        
-        dummyPhotoList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"]
-        
         
         // make the profile picture have a round radius
         userImageView.layer.masksToBounds = false
@@ -62,9 +63,7 @@ class ProfileViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
         button.layer.borderColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0).cgColor
-        
-        
-        
+
     }
     
     func followUser() {
@@ -73,6 +72,10 @@ class ProfileViewController: UIViewController {
     
     func editProfile() {
         // ADD CODE TO GO TO EDIT PROFILE VIEW
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let controller = storyboard .instantiateViewController(withIdentifier: "EditProfileTableViewController") as?
+            EditProfileTableViewController else { return }
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func listenToFirebase() {
@@ -82,7 +85,7 @@ class ProfileViewController: UIViewController {
             
             let dictionary = snapshot.value as? [String: Any]
             
-            var currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["screenName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
+            let currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["screenName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
             
             // load screen name in nav bar
             self.navigationItem.title = currentProfileUser.screenName
@@ -105,8 +108,11 @@ class ProfileViewController: UIViewController {
                 self.button.setTitle("Follow", for: .normal)
                 self.button.addTarget(self, action: #selector(self.followUser), for: .touchUpInside)
             } else {
+                self.button.setTitle("Edit Profile", for: .normal)
                 self.button.addTarget(self, action: #selector(self.editProfile), for: .touchUpInside)
             }
+            
+            self.wholeView.isHidden = false
 
         })
         
@@ -150,6 +156,17 @@ extension ProfileViewController : UICollectionViewDataSource {
         
         cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].imageURL)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        guard let controller = storyboard .instantiateViewController(withIdentifier: "PhotoShowController") as?
+//            PhotoShowController else { return }
+//        
+//        controller.currentPhoto = photoList[indexPath.row]
+//        
+//        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
