@@ -10,9 +10,13 @@ import UIKit
 
 class EditProfileTableViewController: UITableViewController {
 
-    @IBOutlet weak var cancelEditingButton: UIBarButtonItem!
+    @IBAction func cancelEditProfileButton(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
     
-    @IBOutlet weak var doneEditingButton: UIBarButtonItem!
+    @IBAction func doneEditProfileButton(_ sender: Any) {
+    }
+    
     
     @IBOutlet weak var profilePhotoImage: UIImageView!
     

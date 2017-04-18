@@ -19,7 +19,8 @@ class TimeLineTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postImageiew: UIImageView!
     
-    @IBOutlet weak var userNameLabel2: UILabel!
+    
+    @IBOutlet weak var captionTextView: UITextView!
     
     @IBOutlet weak var likesCounter: UILabel!
     

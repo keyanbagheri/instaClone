@@ -13,7 +13,9 @@ class Photo {
     var userID : String
     var userName : String
     var location : String
-    var imageURL : String
+    var imagePostURL : String
+    var imageProfileURL : String
+    var caption : String
     var timeStamp : String
     
     init( ) {
@@ -21,16 +23,20 @@ class Photo {
         userID = ""
         userName = ""
         location = ""
-        imageURL = ""
+        imagePostURL = ""
+        imageProfileURL = ""
+        caption = ""
         timeStamp = ""
     }
     
-    init(withAnId : String, aUserID : String, aUserName : String, aLocation : String, anImageURL : String, aTimeStamp : String) {
+    init(withAnId : String, aUserID : String, aUserName : String, aLocation : String, anImagePostURL : String, anImageProfileURL : String, aCaption : String, aTimeStamp : String) {
         id = withAnId
         userID = aUserID
         userName = aUserName
         location = aLocation
-        imageURL = anImageURL
+        imagePostURL = anImagePostURL
+        imageProfileURL = anImageProfileURL
+        caption = aCaption
         timeStamp = aTimeStamp
     }
 }
