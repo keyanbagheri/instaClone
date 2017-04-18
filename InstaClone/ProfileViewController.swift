@@ -38,7 +38,6 @@ class ProfileViewController: UIViewController {
     }
     
     var photoList : [Photo] = []
-    var dummyPhotoList : [String] = []
     
     var ref: FIRDatabaseReference!
     

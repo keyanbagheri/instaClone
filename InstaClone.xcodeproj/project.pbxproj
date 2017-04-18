@@ -20,6 +20,7 @@
 		67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67331B031EA0BD1E00B0005A /* AppDelegate.swift */; };
 		67331B0B1EA0BD1E00B0005A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67331B0A1EA0BD1E00B0005A /* Assets.xcassets */; };
 		67331B0E1EA0BD1E00B0005A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67331B0C1EA0BD1E00B0005A /* LaunchScreen.storyboard */; };
+		6762A8311EA6205E00C844EB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762A8301EA6205E00C844EB /* SearchViewController.swift */; };
 		6794BC8E1EA201C4008E0DA2 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */; };
 		67C5D5F21EA240DF008C2535 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C5D5F11EA240DF008C2535 /* User.swift */; };
 		67FAFB851EA4A8EB0025C03C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67FAFB831EA4A8EB0025C03C /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		67331B0A1EA0BD1E00B0005A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67331B0D1EA0BD1E00B0005A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67331B0F1EA0BD1E00B0005A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6762A8301EA6205E00C844EB /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		67C5D5F11EA240DF008C2535 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		67FAFB841EA4A8EB0025C03C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 		21B8A0A91EA4733C00E48200 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6762A8301EA6205E00C844EB /* SearchViewController.swift */,
 				67FAFB881EA4A9100025C03C /* ProfileViewController.swift */,
 				21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */,
 				21E80CF41EA357500014A0BC /* RegisterViewController.swift */,
@@ -289,6 +292,7 @@
 				67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */,
 				21B8A0B81EA5C65600E48200 /* TimeLineViewController.swift in Sources */,
 				21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */,
+				6762A8311EA6205E00C844EB /* SearchViewController.swift in Sources */,
 				21B8A0B11EA4C08600E48200 /* TimeLineTableViewCell.swift in Sources */,
 				21B8A0B61EA5B41800E48200 /* EditProfileTableViewController.swift in Sources */,
 				67FAFB891EA4A9100025C03C /* ProfileViewController.swift in Sources */,
