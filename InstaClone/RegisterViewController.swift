@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 class RegisterViewController: UIViewController, UITextFieldDelegate {
 
-    var messagesController: MessagesViewController?
+    
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var nameTextField: UITextField!

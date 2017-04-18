@@ -413,44 +413,6 @@
             </objects>
             <point key="canvasLocation" x="2330" y="-260"/>
         </scene>
-        <!--Messages View Controller-->
-        <scene sceneID="veW-Md-JvI">
-            <objects>
-                <viewController storyboardIdentifier="MessagesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AeO-qS-ESV" customClass="MessagesViewController" customModule="InstaClone" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="f2W-md-j6U"/>
-                        <viewControllerLayoutGuide type="bottom" id="0MJ-Fy-LRx"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xWn-6Q-Jdg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SHIT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRD-9H-yzY">
-                                <rect key="frame" x="159" y="269" width="38" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qzw-3n-jJ4">
-                                <rect key="frame" x="312" y="28" width="48" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Logout"/>
-                                <connections>
-                                    <action selector="logoutButtonTapped:" destination="AeO-qS-ESV" eventType="touchUpInside" id="mzC-JE-nDE"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="shitLabel" destination="dRD-9H-yzY" id="1sb-M2-DJr"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jpU-cK-N2t" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3078" y="-260"/>
-        </scene>
     </scenes>
     <resources>
         <image name="addimage" width="512" height="512"/>

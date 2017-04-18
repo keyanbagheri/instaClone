@@ -20,8 +20,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         print("login sucessfull")
     }
     
-    var messagesController: MessagesViewController?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
