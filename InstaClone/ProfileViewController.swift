@@ -154,7 +154,7 @@ class ProfileViewController: UIViewController {
                 if let dictionary = v as? [String: String] {
         
                     // fix when uploading photos has been changed with actual data (not just imageURL)
-                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImageURL: dictionary["imageURL"]!, aTimeStamp: "")
+                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: dictionary["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
                     self.photoList.append(newPhoto)
                 }
                 
@@ -182,7 +182,7 @@ extension ProfileViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollectionViewCell", for: indexPath) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
         
-        cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].imageURL)
+        cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].imagePostURL)
         return cell
     }
     
