@@ -10,7 +10,6 @@
 		21B8A0AB1EA474B400E48200 /* FacebookLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */; };
 		21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AD1EA482AD00E48200 /* Instagram.swift */; };
 		21E80CF51EA357500014A0BC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E80CF41EA357500014A0BC /* RegisterViewController.swift */; };
-		21E80CF81EA362980014A0BC /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E80CF71EA362980014A0BC /* MessagesViewController.swift */; };
 		21E80CFA1EA36C8A0014A0BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21E80CF91EA36C8A0014A0BC /* GoogleService-Info.plist */; };
 		21E80CFC1EA36D8D0014A0BC /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */; };
 		67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67331B031EA0BD1E00B0005A /* AppDelegate.swift */; };
@@ -29,7 +28,6 @@
 		21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLogInViewController.swift; sourceTree = "<group>"; };
 		21B8A0AD1EA482AD00E48200 /* Instagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
 		21E80CF41EA357500014A0BC /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		21E80CF71EA362980014A0BC /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		21E80CF91EA36C8A0014A0BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		32285BEE87434148DF6C7AE8 /* Pods_InstaClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +80,6 @@
 				67FAFB881EA4A9100025C03C /* ProfileViewController.swift */,
 				21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */,
 				21E80CF41EA357500014A0BC /* RegisterViewController.swift */,
-				21E80CF71EA362980014A0BC /* MessagesViewController.swift */,
 				21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */,
 			);
 			name = Controller;
@@ -270,7 +267,6 @@
 			files = (
 				67FAFB871EA4A9020025C03C /* Photo.swift in Sources */,
 				67FAFB8B1EA4A91E0025C03C /* PhotoCollectionViewCell.swift in Sources */,
-				21E80CF81EA362980014A0BC /* MessagesViewController.swift in Sources */,
 				21E80CFC1EA36D8D0014A0BC /* LogInViewController.swift in Sources */,
 				21B8A0AB1EA474B400E48200 /* FacebookLogInViewController.swift in Sources */,
 				67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */,
