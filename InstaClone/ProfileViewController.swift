@@ -45,6 +45,8 @@ class ProfileViewController: UIViewController {
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
     
     var profileUserID = "3DqqiWKvSzPf2Lwy7WllKxOcOB83"
+    
+    var isFollowed = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +70,23 @@ class ProfileViewController: UIViewController {
     
     func followUser() {
         // ADD CODE TO FOLLOW A USER
+        if isFollowed {
+            ref.child("users").child(profileUserID).child("followers").child((currentUser?.uid)!).removeValue()
+            ref.child("users").child((currentUser?.uid)!).child("following").child(profileUserID).removeValue()
+            
+            self.button.setTitle("Follow", for: .normal)
+        } else {
+    
+            let following : [String : String] = [profileUserID : "true"]
+            
+            let follower : [String : String] = [currentUser!.uid : "true"]
+            
+            ref.child("users").child(profileUserID).child("followers").updateChildValues(follower)
+            ref.child("users").child((currentUser?.uid)!).child("following").updateChildValues(following)
+            
+            self.button.setTitle("Following", for: .normal)
+        }
+        isFollowed = !isFollowed
     }
     
     func editProfile() {
@@ -87,6 +106,16 @@ class ProfileViewController: UIViewController {
             
             let currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["screenName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
             
+            self.ref.child("users").child((self.currentUser?.uid)!).child("following").child(self.profileUserID).observe(.value, with: { (instance) in
+                print(instance)
+                
+                if instance.exists() {
+                    self.isFollowed = true
+                    self.button.setTitle("Following", for: .normal)
+                }
+                
+            })
+            
             // load screen name in nav bar
             self.navigationItem.title = currentProfileUser.screenName
             
@@ -105,7 +134,6 @@ class ProfileViewController: UIViewController {
             // if same button text = "Edit Profile"
             // if not button text = "Follow"
             if currentProfileUser.id != self.currentUser?.uid {
-                self.button.setTitle("Follow", for: .normal)
                 self.button.addTarget(self, action: #selector(self.followUser), for: .touchUpInside)
             } else {
                 self.button.setTitle("Edit Profile", for: .normal)
