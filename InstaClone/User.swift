@@ -25,7 +25,7 @@ class User {
         desc = ""
         profileImageURL = ""
     }
-    
+
     init(withAnId : String, anEmail : String, aName : String, aScreenName : String, aDesc : String, aProfileImageURL : String) {
         id = withAnId
         email = anEmail
@@ -36,12 +36,12 @@ class User {
     }
     
     init(dictionary: [String: AnyObject]) {
-        id = (dictionary["id"] as? String)!
-        name = (dictionary["name"] as? String)!
+        id = dictionary["id"] as? String
+        name = dictionary["name"] as? String
         screenName = "Anonymous"
-        email = (dictionary["email"] as? String)!
+        email = dictionary["email"] as? String
         desc = "I'm using InstaClone"
-        profileImageURL = (dictionary["profileImageURL"] as? String)!
+        profileImageURL = dictionary["profileImageURL"] as? String
     }
     
 }

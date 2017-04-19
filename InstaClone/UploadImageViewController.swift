@@ -20,7 +20,13 @@ class UploadImageViewController: UIViewController {
     
     @IBOutlet weak var photoImageView: UIImageView!
     
-    @IBOutlet weak var libraryButtonTapped: UIButton!
+    @IBOutlet weak var libraryButtonTapped: UIButton!{
+        didSet {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(choosePostImage))
+            libraryButtonTapped.isUserInteractionEnabled = true
+            libraryButtonTapped.addGestureRecognizer(tapGestureRecognizer)
+        }
+    }
     
     @IBAction func cameraPhotoMaker(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -73,7 +79,7 @@ class UploadImageViewController: UIViewController {
                     FIRDatabase.database().reference().child("users").child(userUid).observe(.value, with: { (snapshot) in
                         
                         if let dictionary = snapshot.value as? [String: AnyObject] {
-                            let user = User(dictionary: dictionary)
+                            let user = User(dictionary: dictionary)//User(withID: snapshot.key, dictionary: dictionary)
                             user.id = snapshot.key
                             guard let username = user.name, let pic = user.profileImageURL else{return}
                             self.userName = username

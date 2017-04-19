@@ -13,13 +13,13 @@ import FirebaseStorage
 
 class TimeLineViewController: UIViewController {
 
+    var filteredPhotoFeed: [Photo] = []
     var photos = [Photo]()
     var uid = FIRAuth.auth()?.currentUser?.uid
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
     var postsUsersIds = [String].self
     var following = [String]()
     var lastPostID : Int = 0
-    
     
     @IBOutlet weak var tableView: UITableView!{
         didSet{
@@ -89,20 +89,18 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TimeLineTableViewCell.cellIdentifier, for: indexPath) as? TimeLineTableViewCell else {  return UITableViewCell()}
             
-            let photo = photos[indexPath.row]
+            let currentPost = photos[indexPath.row]
+            let postImageUrl = currentPost.postImageUrl
+            let userProfileImageUrl = currentPost.userProfileImageUrl
             
-            cell.userNameLabel.text = photo.userName
+            cell.userNameLabel.text = currentPost.userName
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl!)
+            cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: postImageUrl!)
             
-            if let userProfileImageUrl = photo.userProfileImageUrl {
-                cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl)
-            }
-            
-            if let postImageUrl = photo.postImageUrl {
-                cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: postImageUrl)
-            }
             //cell.captionTextView.text = photo.caption
             //cell.callTapGesture()
-            cell.postIdentifier = photo.id
+            cell.postIdentifier = currentPost.id
+            cell.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 300)
             //cell.numberOflikes = post.numberOfLikes
             
             //        cell.observeLikesOnPost(post.id!)
