@@ -42,6 +42,7 @@ class User {
         email = dictionary["email"] as? String
         desc = "I'm using InstaClone"
         profileImageUrl = dictionary["profileImageUrl"] as? String
+
     }
     
 }
