@@ -10,12 +10,12 @@ import Foundation
 
 class User {
 
-    var id: String
-    var email : String
-    var name : String
-    var screenName : String
-    var desc : String
-    var profileImageURL : String
+    var id: String?
+    var email : String?
+    var name : String?
+    var screenName : String?
+    var desc : String?
+    var profileImageURL : String?
     
     init( ) {
         id = ""
@@ -41,7 +41,7 @@ class User {
         screenName = "Anonymous"
         email = (dictionary["email"] as? String)!
         desc = "I'm using InstaClone"
-        profileImageURL = (dictionary["profileImageUrl"] as? String)!
+        profileImageURL = (dictionary["profileImageURL"] as? String)!
     }
     
 }

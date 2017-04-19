@@ -33,8 +33,9 @@ class TimeLineTableViewCell: UITableViewCell {
     }
     
     
-    
-    
+    var postIdentifier : String?
+    var numberOflikes = Int()
+    var likeIsTapped  = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
