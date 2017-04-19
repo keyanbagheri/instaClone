@@ -47,10 +47,8 @@ class SearchViewController: UIViewController {
     
     
     func listenToFirebase() {
-        
         ref.child("users").observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
-            
             let users = snapshot.value as? [String: Any]
             
             for (k, v) in users! {
@@ -69,28 +67,18 @@ class SearchViewController: UIViewController {
                                         let newPhoto = Photo(withAnId: key, aUserID: "", aUserName: "", aLocation: "", aPostImageURL: photo["imageURL"]!, aUserProfileImageURL: "",  aTimeStamp: "")
                                         self.photoList.append(newPhoto)
                                     }
-                                    
                                 }
-                                
                             }
                         }
-                        
                     }
-                
                 }
-                
             }
-            
             self.imageCollectionView.reloadData()
             let height = self.imageCollectionView.collectionViewLayout.collectionViewContentSize.height
             self.collectionViewHeightConstraint.constant = height
         })
-        
-        
     }
-
 }
-
 
 extension SearchViewController : UICollectionViewDataSource {
     

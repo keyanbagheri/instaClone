@@ -12,7 +12,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
 }
 
-
 let imageCache = NSCache<AnyObject, AnyObject>()
 
 extension UIImageView {
@@ -45,7 +44,4 @@ extension UIImageView {
             })
         }).resume()
     }
-    
-    
-    
 }

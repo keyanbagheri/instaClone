@@ -34,7 +34,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         passwordTextField.delegate = self
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleSelectorProfileImageView)))
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
     func handleRegister() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let name = nameTextField.text else {
@@ -45,7 +45,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             warningPopUp(withTitle: "Input Error", withMessage: "Name, Email or Password Can't Be Empty")
             return
         }
-        
         
         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user: FIRUser?, error) in
             
@@ -61,7 +60,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("profile_images").child("\(imageName).jpg")
             
-            if let profileImage = self.profileImageView.image, let uploadData = UIImageJPEGRepresentation(profileImage, 0.1) {
+            if let profileImage = self.profileImageView.image,
+                let uploadData = UIImageJPEGRepresentation(profileImage, 0.1) {
                 
                 storageRef.put(uploadData, metadata: nil, completion: { (metadata, error) in
                     
@@ -91,31 +91,25 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             //let user = User(dictionary: values as [String : AnyObject])
             // This setter potentially crashes if keys don't match
             //user.setValuesForKeys(values)
-
             //self.dismiss(animated: true, completion: nil)
         })
     }
     
     func registerButtonToNextVC(){
         let currentStoryboard = UIStoryboard (name: "Main", bundle: Bundle.main)
-        
         let initController = currentStoryboard.instantiateViewController(withIdentifier: "Main.storyboard")
         present(initController, animated: true, completion: nil)
     }
 
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
-        
     }
 
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
     }
-    
-}
+}//end VC
 
 extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -140,7 +134,6 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         }
         
         if let selectedImage = selectedImageFromPicker {
-            
             profileImageView.image = selectedImage
             profileImageView.layer.cornerRadius = 99
             profileImageView.layer.masksToBounds = true
@@ -154,7 +147,5 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         print("canceled picker")
         dismiss(animated: true, completion: nil)
     }
-    
-    
 }
 

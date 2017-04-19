@@ -75,8 +75,7 @@ class CommentsViewController: UIViewController {
             self.commentsTableView.reloadData()
         })
     }
-    
-    
+
     func handleSend() {
         let ref = FIRDatabase.database().reference().child("posts").child("-Ki3oZKYFTDAFp49sve_").child("comments")
         let childRef = ref.childByAutoId()
@@ -102,7 +101,6 @@ class CommentsViewController: UIViewController {
                 self.comments.append(newComment)
         }
     }
-
 }
 
 extension CommentsViewController: UITableViewDelegate, UITableViewDataSource{
@@ -122,11 +120,3 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
 }
-
-
-
-
-
-
-
-

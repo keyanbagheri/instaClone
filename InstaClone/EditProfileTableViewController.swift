@@ -17,7 +17,6 @@ class EditProfileTableViewController: UITableViewController {
     @IBAction func doneEditProfileButton(_ sender: Any) {
     }
     
-    
     @IBOutlet weak var profilePhotoImage: UIImageView!{
         didSet{
             profilePhotoImage.layer.cornerRadius = profilePhotoImage.frame.width/2

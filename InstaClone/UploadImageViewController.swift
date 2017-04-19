@@ -5,7 +5,6 @@
 //  Created by Arkadijs Makarenko on 18/04/2017.
 //  Copyright © 2017 teamHearts. All rights reserved.
 //
-
 import UIKit
 import Firebase
 
@@ -18,14 +17,11 @@ class UploadImageViewController: UIViewController {
     
     @IBAction func nextButtonTapped(_ sender: Any) {
         let currentStoryboard = UIStoryboard (name: "Main", bundle: Bundle.main)
-        
         let initController = currentStoryboard.instantiateViewController(withIdentifier: "NewPostTableViewController")
-//        present(initController, animated: true, completion: nil)
         navigationController?.pushViewController(initController, animated: true)
     }
     
     @IBOutlet weak var photoImageView: UIImageView!
-    
     @IBOutlet weak var libraryButtonTapped: UIButton!{
         didSet {
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(choosePostImage))
@@ -47,19 +43,10 @@ class UploadImageViewController: UIViewController {
     }
     
     func noCameraOnDevice(){
-        let alertVC = UIAlertController(
-            title: "No Camera",
-            message: "Device without camera",
-            preferredStyle: .alert)
-        let okAction = UIAlertAction(
-            title: "OK",
-            style:.default,
-            handler: nil)
+        let alertVC = UIAlertController(title: "No Camera",message: "Device without camera",preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style:.default, handler: nil)
         alertVC.addAction(okAction)
-        present(
-            alertVC,
-            animated: true,
-            completion: nil)
+        present(alertVC,animated: true, completion: nil)
     }
     
     @IBAction func uploadButtonTapped(_ sender: Any) {
@@ -67,7 +54,7 @@ class UploadImageViewController: UIViewController {
     }
     
     func sharePost(){
-        if photoImageView.image == UIImage(named: "tapmeimage"){
+        if photoImageView.image == UIImage(named: "ig"){
         }else{
             //  guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
             let imageName = NSUUID().uuidString
@@ -91,14 +78,15 @@ class UploadImageViewController: UIViewController {
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             let user = User(dictionary: dictionary)//User(withID: snapshot.key, dictionary: dictionary)
                             user.id = snapshot.key
-                            guard let username = user.name, let pic = user.profileImageUrl else{return}
+                            guard let username = user.name,
+                            let pic = user.profileImageUrl else {return}
                             self.userName = username
                             self.userProfilePicture = pic
                             
                         }
-                        //TODO:Add the liked bool and Int
+
                         let values = ["userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
-                        self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
+                        self.registerPostIntoDataBase(userUid, values: values as [String : Any])
                         
                     }, withCancel: nil)
                 }
@@ -111,9 +99,7 @@ class UploadImageViewController: UIViewController {
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
         let ref = FIRDatabase.database().reference(fromURL: "https://instaclone-abf88.firebaseio.com/")
         let PostsReference = ref.child("posts").childByAutoId()
-        
         PostsReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
-            
             if err != nil {
                 print("Error saving user: \(err ?? "" as! Error)")
                 return
@@ -135,8 +121,7 @@ class UploadImageViewController: UIViewController {
         picker.allowsEditing = true
         present(picker, animated: true, completion: nil)
     }
-}
-
+}//end vc
 extension UploadImageViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
@@ -161,8 +146,6 @@ extension UploadImageViewController : UIImagePickerControllerDelegate, UINavigat
         {
             photoImageView.image = selectedImage
         }
-        
         dismiss(animated: true, completion: nil)
     }
-    
 }

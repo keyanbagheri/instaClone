@@ -25,7 +25,6 @@ class TimeLineViewController: UIViewController {
         didSet{
             tableView.delegate = self
             tableView.dataSource = self
-            
             tableView.register(TimeLineTableViewCell.cellNib, forCellReuseIdentifier: TimeLineTableViewCell.cellIdentifier)
         }
     }
@@ -57,7 +56,6 @@ class TimeLineViewController: UIViewController {
     }
     func fetchPhoto() {
         FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
-            
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let photo = Photo(dictionary: dictionary)
                 photo.id = snapshot.key
@@ -68,16 +66,12 @@ class TimeLineViewController: UIViewController {
                 
                 DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
-                    
                 })
-                
             }
             
         }, withCancel: nil)
     }
-}
-
-
+}//end vc
 
 extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,10 +110,3 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
             return true
         }
 }
-
-
-
-
-
-
-

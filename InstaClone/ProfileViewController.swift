@@ -129,7 +129,6 @@ class ProfileViewController: UIViewController {
                     self.isFollowed = true
                     self.button.setTitle("Following", for: .normal)
                 }
-                
             })
             
             // load screen name in nav bar
