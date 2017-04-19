@@ -13,35 +13,35 @@ class User {
     var id: String?
     var email : String?
     var name : String?
-    var screenName : String?
+    var userName : String?
     var desc : String?
-    var profileImageURL : String?
+    var profileImageUrl : String?
     
     init( ) {
         id = ""
         email = ""
         name = ""
-        screenName = ""
+        userName = ""
         desc = ""
-        profileImageURL = ""
+        profileImageUrl = ""
     }
 
     init(withAnId : String, anEmail : String, aName : String, aScreenName : String, aDesc : String, aProfileImageURL : String) {
         id = withAnId
         email = anEmail
         name = aName
-        screenName = aScreenName
+        userName = aScreenName
         desc = aDesc
-        profileImageURL = aProfileImageURL
+        profileImageUrl = aProfileImageURL
     }
     
     init(dictionary: [String: AnyObject]) {
         id = dictionary["id"] as? String
         name = dictionary["name"] as? String
-        screenName = "Anonymous"
+        userName = "Anonymous"
         email = dictionary["email"] as? String
         desc = "I'm using InstaClone"
-        profileImageURL = dictionary["profileImageURL"] as? String
+        profileImageUrl = dictionary["profileImageUrl"] as? String
     }
     
 }

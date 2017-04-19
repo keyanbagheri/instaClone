@@ -116,11 +116,11 @@ class ProfileViewController: UIViewController {
             })
             
             // load screen name in nav bar
-            self.navigationItem.title = currentProfileUser.screenName
+            self.navigationItem.title = currentProfileUser.userName
             
             
             // load the profile image
-            self.userImageView.loadImageUsingCacheWithUrlString(urlString: currentProfileUser.profileImageURL!)
+            self.userImageView.loadImageUsingCacheWithUrlString(urlString: currentProfileUser.profileImageUrl!)
             
             
             // load the user name

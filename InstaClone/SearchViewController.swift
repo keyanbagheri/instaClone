@@ -66,7 +66,7 @@ class SearchViewController: UIViewController {
                                     
                                     if let photo = value as? [String: String] {
                                         //fix when uploading photos has been changed with actual data (not just imageURL)
-                                        let newPhoto = Photo(withAnId: key, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: photo["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
+                                        let newPhoto = Photo(withAnId: key, aUserID: "", aUserName: "", aLocation: "", aPostImageURL: photo["imageURL"]!, aUserProfileImageURL: "",  aTimeStamp: "")
                                         self.photoList.append(newPhoto)
                                     }
                                     
@@ -106,7 +106,7 @@ extension SearchViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollectionViewCell", for: indexPath) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
         
-        cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].imagePostURL)
+        cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].postImageUrl!)
         return cell
     }
     

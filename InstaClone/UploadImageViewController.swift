@@ -64,7 +64,7 @@ class UploadImageViewController: UIViewController {
             let storageRef = FIRStorage.storage().reference().child("postsImages").child("\(imageName).jpeg")
             
             let image = self.photoImageView.image
-            guard let imageData = UIImageJPEGRepresentation(image!, 0.5) else { return }
+            guard let imageData = UIImageJPEGRepresentation(image!, 0.1) else { return }
             
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
@@ -81,7 +81,7 @@ class UploadImageViewController: UIViewController {
                         if let dictionary = snapshot.value as? [String: AnyObject] {
                             let user = User(dictionary: dictionary)//User(withID: snapshot.key, dictionary: dictionary)
                             user.id = snapshot.key
-                            guard let username = user.name, let pic = user.profileImageURL else{return}
+                            guard let username = user.name, let pic = user.profileImageUrl else{return}
                             self.userName = username
                             self.userProfilePicture = pic
                             
