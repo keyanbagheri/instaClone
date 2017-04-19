@@ -13,6 +13,9 @@ import FirebaseStorage
 
 class SearchViewController: UIViewController {
     
+    @IBOutlet weak var topImageView: UIImageView!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var imageCollectionView: UICollectionView! {
@@ -32,6 +35,7 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        topImageView.loadImageUsingCacheWithUrlString(urlString: "https://cdn.pixabay.com/photo/2015/02/18/11/50/mountain-landscape-640617_1280.jpg")
         ref = FIRDatabase.database().reference()
         listenToFirebase()
     }
@@ -78,6 +82,8 @@ class SearchViewController: UIViewController {
             }
             
             self.imageCollectionView.reloadData()
+            let height = self.imageCollectionView.collectionViewLayout.collectionViewContentSize.height
+            self.collectionViewHeightConstraint.constant = height
         })
         
         
@@ -140,4 +146,5 @@ extension SearchViewController : UICollectionViewDelegateFlowLayout {
     {
         return 0
     }
+    
 }
