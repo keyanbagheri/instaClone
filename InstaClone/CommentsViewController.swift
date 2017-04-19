@@ -58,21 +58,21 @@ class CommentsViewController: UIViewController {
 //    }
     
     func observeComments() {
-        ref.child("posts").child("-Ki3oZKYFTDAFp49sve_").child("comments").observe(.value, with: { (snapshot) in
+        ref.child("posts").child("-Ki3oZKYFTDAFp49sve_").child("comments").observe(.childAdded, with: { (snapshot) in
             print(snapshot)
             
             guard let comments = snapshot.value as? NSDictionary else {return}
             
-            for (k, v) in comments {
+            self.addToComments(id: snapshot.key, commentInfo: comments)
+           /* for (k, v) in comments {
                 
                 if let commentId = k as? String,
                    let dictionary = v as? [String: Any] {
                     self.addToComments(id: commentId, commentInfo: dictionary as NSDictionary)
                 }
                 
-            }
+            }*/
             self.commentsTableView.reloadData()
-
         })
     }
     
@@ -116,17 +116,11 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource{
             else { return UITableViewCell()}
         let currentComment = comments[indexPath.row]
         let profilePicURL = currentComment.userProfileImageUrl
-//        cell.commentsTextView.allowsEditingTextAttributes = true
         cell.commentsTextView.text = currentComment.text
         cell.usernameLabel.text = currentComment.userName
         cell.imageView?.loadImageUsingCacheWithUrlString(urlString: profilePicURL!)
         return cell
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 600
-//    }
-    
-    
 }
 
 

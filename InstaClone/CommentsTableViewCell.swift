@@ -16,7 +16,7 @@ class CommentsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView! {
         didSet {
-            profileImageView.layer.cornerRadius = (26/2)
+            profileImageView.layer.cornerRadius = profileImageView.frame.width/2
             profileImageView.layer.masksToBounds = true
         }
     }

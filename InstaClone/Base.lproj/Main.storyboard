@@ -505,13 +505,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eTA-n6-1xk">
-                                <rect key="frame" x="0.0" y="637" width="316" height="30"/>
+                                <rect key="frame" x="5" y="634" width="316" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H0r-gR-3Ny">
-                                <rect key="frame" x="324" y="637" width="51" height="30"/>
+                                <rect key="frame" x="324" y="634" width="51" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="51" id="xKb-P5-x7g"/>
                                 </constraints>
@@ -523,16 +523,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="H0r-gR-3Ny" firstAttribute="top" secondItem="mem-ET-Yrw" secondAttribute="bottom" constant="8" symbolic="YES" id="5ZS-qe-mhm"/>
+                            <constraint firstItem="H0r-gR-3Ny" firstAttribute="top" secondItem="mem-ET-Yrw" secondAttribute="bottom" constant="5" id="5ZS-qe-mhm"/>
                             <constraint firstItem="H0r-gR-3Ny" firstAttribute="trailing" secondItem="mem-ET-Yrw" secondAttribute="trailing" id="FAK-hM-vFq"/>
-                            <constraint firstItem="H0r-gR-3Ny" firstAttribute="top" secondItem="mem-ET-Yrw" secondAttribute="bottom" constant="8" id="FNE-Ee-U3N"/>
-                            <constraint firstItem="mem-ET-Yrw" firstAttribute="leading" secondItem="eTA-n6-1xk" secondAttribute="leading" id="FXy-VC-c41"/>
+                            <constraint firstItem="H0r-gR-3Ny" firstAttribute="top" secondItem="mem-ET-Yrw" secondAttribute="bottom" constant="5" id="FNE-Ee-U3N"/>
+                            <constraint firstItem="mem-ET-Yrw" firstAttribute="leading" secondItem="eTA-n6-1xk" secondAttribute="leading" constant="-5" id="FXy-VC-c41"/>
                             <constraint firstItem="mem-ET-Yrw" firstAttribute="top" secondItem="zSQ-yo-JZw" secondAttribute="bottom" constant="8" symbolic="YES" id="G2s-31-OS5"/>
-                            <constraint firstItem="hsu-tD-Ijy" firstAttribute="top" secondItem="eTA-n6-1xk" secondAttribute="bottom" id="LyR-Z8-uMu"/>
-                            <constraint firstItem="H0r-gR-3Ny" firstAttribute="leading" secondItem="eTA-n6-1xk" secondAttribute="trailing" constant="8" id="Rye-8U-jbi"/>
-                            <constraint firstItem="eTA-n6-1xk" firstAttribute="top" secondItem="mem-ET-Yrw" secondAttribute="bottom" constant="8" id="X9u-XK-MRk"/>
+                            <constraint firstItem="hsu-tD-Ijy" firstAttribute="top" secondItem="eTA-n6-1xk" secondAttribute="bottom" constant="3" id="LyR-Z8-uMu"/>
+                            <constraint firstItem="H0r-gR-3Ny" firstAttribute="leading" secondItem="eTA-n6-1xk" secondAttribute="trailing" constant="3" id="Rye-8U-jbi"/>
+                            <constraint firstItem="eTA-n6-1xk" firstAttribute="top" secondItem="mem-ET-Yrw" secondAttribute="bottom" constant="5" id="X9u-XK-MRk"/>
                             <constraint firstAttribute="trailing" secondItem="H0r-gR-3Ny" secondAttribute="trailing" id="go3-OA-NGZ"/>
-                            <constraint firstItem="eTA-n6-1xk" firstAttribute="leading" secondItem="TTO-7q-BgM" secondAttribute="leading" id="qpy-RP-Asu"/>
+                            <constraint firstItem="eTA-n6-1xk" firstAttribute="leading" secondItem="TTO-7q-BgM" secondAttribute="leading" constant="5" id="qpy-RP-Asu"/>
                         </constraints>
                     </view>
                     <connections>
