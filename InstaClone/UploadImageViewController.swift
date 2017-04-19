@@ -16,7 +16,13 @@ class UploadImageViewController: UIViewController {
     var postIsLiked = false
     var numberOfPostLikes = 0
     
-    @IBOutlet weak var nextButtonTapped: UIBarButtonItem!
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        let currentStoryboard = UIStoryboard (name: "Main", bundle: Bundle.main)
+        
+        let initController = currentStoryboard.instantiateViewController(withIdentifier: "NewPostTableViewController")
+//        present(initController, animated: true, completion: nil)
+        navigationController?.pushViewController(initController, animated: true)
+    }
     
     @IBOutlet weak var photoImageView: UIImageView!
     
@@ -57,6 +63,10 @@ class UploadImageViewController: UIViewController {
     }
     
     @IBAction func uploadButtonTapped(_ sender: Any) {
+        sharePost()
+    }
+    
+    func sharePost(){
         if photoImageView.image == UIImage(named: "tapmeimage"){
         }else{
             //  guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
@@ -74,7 +84,7 @@ class UploadImageViewController: UIViewController {
                     print("Image error: \(error ?? "" as! Error)")
                     return
                 }
-            if let photoImageUrl = metadata?.downloadURL()?.absoluteString {
+                if let photoImageUrl = metadata?.downloadURL()?.absoluteString {
                     guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
                     FIRDatabase.database().reference().child("users").child(userUid).observe(.value, with: { (snapshot) in
                         
@@ -97,6 +107,7 @@ class UploadImageViewController: UIViewController {
             self.tabBarController?.selectedIndex = 0
         }
     }
+    
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
         let ref = FIRDatabase.database().reference(fromURL: "https://instaclone-abf88.firebaseio.com/")
         let PostsReference = ref.child("posts").childByAutoId()

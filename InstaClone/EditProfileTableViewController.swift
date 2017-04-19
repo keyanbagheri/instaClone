@@ -18,7 +18,12 @@ class EditProfileTableViewController: UITableViewController {
     }
     
     
-    @IBOutlet weak var profilePhotoImage: UIImageView!
+    @IBOutlet weak var profilePhotoImage: UIImageView!{
+        didSet{
+            profilePhotoImage.layer.cornerRadius = profilePhotoImage.frame.width/2
+            profilePhotoImage.layer.masksToBounds = true
+        }
+    }
     
     @IBAction func changeProfilePhoto(_ sender: Any) {
     }

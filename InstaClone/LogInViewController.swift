@@ -22,6 +22,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tf = UITextField()
+        tf.autocapitalizationType = .none
         emailTextField.delegate = self
         passwordTextField.delegate = self
         handleLogin()
