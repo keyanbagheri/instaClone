@@ -93,13 +93,10 @@
 			children = (
 				6762A8301EA6205E00C844EB /* SearchViewController.swift */,
 				67FAFB881EA4A9100025C03C /* ProfileViewController.swift */,
-				21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */,
-				21E80CF41EA357500014A0BC /* RegisterViewController.swift */,
-				21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */,
-				21B8A0B51EA5B41800E48200 /* EditProfileTableViewController.swift */,
 				21B8A0AF1EA4C08600E48200 /* TimeLineTableViewCell.swift */,
 				21B8A0B01EA4C08600E48200 /* TimeLineTableViewCell.xib */,
 				21B8A0B71EA5C65600E48200 /* TimeLineViewController.swift */,
+				21B8A0B51EA5B41800E48200 /* EditProfileTableViewController.swift */,
 				21FAEC551EA64C4D009C7B48 /* UploadImageViewController.swift */,
 				21FAEC571EA7107C009C7B48 /* NewPostTableViewController.swift */,
 			);
@@ -114,6 +111,17 @@
 				21B8A0AD1EA482AD00E48200 /* Instagram.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		21FAEC591EA739F3009C7B48 /* Auth Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				21E80CFB1EA36D8D0014A0BC /* LogInViewController.swift */,
+				21E80CF41EA357500014A0BC /* RegisterViewController.swift */,
+				21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */,
+				6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */,
+			);
+			name = "Auth Storyboard";
 			sourceTree = "<group>";
 		};
 		5704EC229919BB09220F9E65 /* Pods */ = {
@@ -150,7 +158,7 @@
 				67331B031EA0BD1E00B0005A /* AppDelegate.swift */,
 				21B8A0A81EA4732D00E48200 /* View */,
 				21B8A0A91EA4733C00E48200 /* Controller */,
-				6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */,
+				21FAEC591EA739F3009C7B48 /* Auth Storyboard */,
 				67FAFB831EA4A8EB0025C03C /* Main.storyboard */,
 				67331B0A1EA0BD1E00B0005A /* Assets.xcassets */,
 				67331B0C1EA0BD1E00B0005A /* LaunchScreen.storyboard */,

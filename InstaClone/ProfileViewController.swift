@@ -29,6 +29,10 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var button: UIButton!
     
+    
+    
+    
+    
     @IBOutlet weak var imageCollectionView: UICollectionView! {
         didSet {
             imageCollectionView.dataSource = self
@@ -49,7 +53,7 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         wholeView.isHidden = true
         
         ref = FIRDatabase.database().reference()
@@ -65,6 +69,19 @@ class ProfileViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.layer.borderColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0).cgColor
 
+    }
+    
+    func handleLogout() {
+        
+        do {
+            try FIRAuth.auth()?.signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        
+        let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
+        let initController = currentStoryboard.instantiateViewController(withIdentifier: "LogInViewController")
+        present(initController, animated: true, completion: nil)
     }
     
     func followUser() {
@@ -103,7 +120,7 @@ class ProfileViewController: UIViewController {
             
             let dictionary = snapshot.value as? [String: Any]
             
-            let currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["screenName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
+            let currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["userName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
             
             self.ref.child("users").child((self.currentUser?.uid)!).child("following").child(self.profileUserID).observe(.value, with: { (instance) in
                 print(instance)

@@ -68,6 +68,7 @@ class TimeLineViewController: UIViewController {
                 
                 DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
+                    
                 })
                 
             }
