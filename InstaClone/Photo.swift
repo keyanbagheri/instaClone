@@ -9,34 +9,23 @@
 import Foundation
 
 class Photo {
-    var id: String
-    var userID : String
-    var userName : String
-    var location : String
-    var imagePostURL : String
-    var imageProfileURL : String
-    var caption : String
-    var timeStamp : String
-    
-    init( ) {
-        id = ""
-        userID = ""
-        userName = ""
-        location = ""
-        imagePostURL = ""
-        imageProfileURL = ""
-        caption = ""
-        timeStamp = ""
-    }
-    
-    init(withAnId : String, aUserID : String, aUserName : String, aLocation : String, anImagePostURL : String, anImageProfileURL : String, aCaption : String, aTimeStamp : String) {
-        id = withAnId
-        userID = aUserID
-        userName = aUserName
-        location = aLocation
-        imagePostURL = anImagePostURL
-        imageProfileURL = anImageProfileURL
-        caption = aCaption
-        timeStamp = aTimeStamp
+    var id: String?
+    var userId : String?
+    var userName:String?
+    //var caption: String?
+    var postImageUrl: String?
+    var userProfileImageUrl: String?
+    var likeImageIsTapped: Bool?
+    var numberOfLikes: Int?
+    init(dictionary: [String: AnyObject]) {
+        
+        self.id = dictionary["id"] as? String
+        self.userId = dictionary["userId"] as? String
+        self.userName = dictionary["userName"] as? String
+        //self.caption = dictionary["caption"] as? String
+        self.postImageUrl = dictionary["postImageUrl"] as? String
+        self.userProfileImageUrl = dictionary["userProfileImageURL"] as? String
+        self.likeImageIsTapped = dictionary["likeImageIsTapped"] as? Bool
+        self.numberOfLikes = dictionary["numberOfLikes"] as? Int
     }
 }

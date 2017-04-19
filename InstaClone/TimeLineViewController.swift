@@ -13,12 +13,13 @@ import FirebaseStorage
 
 class TimeLineViewController: UIViewController {
 
-    var picturePost: [Photo] = []
-    var ref: FIRDatabaseReference!
+    var filteredPhotoFeed: [Photo] = []
+    var photos = [Photo]()
+    var uid = FIRAuth.auth()?.currentUser?.uid
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
-    var currentUserID : String = ""
+    var postsUsersIds = [String].self
+    var following = [String]()
     var lastPostID : Int = 0
-    
     
     @IBOutlet weak var tableView: UITableView!{
         didSet{
@@ -31,101 +32,89 @@ class TimeLineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        ref = FIRDatabase.database().reference()
-        if let id = currentUser?.uid {
-            print(id)
-            currentUserID = id
-        }
-     
-        listenToFirebase()
+        fetchUsers()
+        fetchPhoto()
     }
-    
-    func listenToFirebase() {
-        ref.child("posts").observe(.value, with: { (snapshot) in
-            print("Value : " , snapshot)
-        })
-        
-        // 2. get the snapshot
-        ref.child("posts").observe(.childAdded, with: { (snapshot) in
-            print("Value : " , snapshot)
+    func fetchUsers() {
+        FIRDatabase.database().reference().child("users").child(uid!).child("following").observe(.value, with: { (snapshot) in
             
-            // 3. convert snapshot to dictionary
-            guard let info = snapshot.value as? NSDictionary else {return}
-            // 4. add to array of messages
-            self.addToPersonalPost(id: snapshot.key, postInfo: info)
+            //   if let dictionary = snapshot.value as? [String: AnyObject] {
+            //                 let user = User(dictionary: dictionary)
+            //                 user.id = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
+            //               self.following.append(user.id!)
             
-            // sort
-            self.picturePost.sort(by: { (picture1, picture2) -> Bool in
-                return picture1.id > picture2.id
-                
-                //LATER NEED TO CHANGE TO SORT BY POST TIME
+            let allId = (snapshot.value as? NSDictionary)?.allKeys as? [String] ?? []
+            self.following.append(contentsOf: allId)
+            print("FollowersUserIdsArray: ",self.following)
+            
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
             })
             
-            // set last message id to last id
-//            if let lastPost = self.picturePost.last {
-//                self.lastPostID = lastPost.id
-//            }
-//            
-            // 5. update table view
-            self.tableView.reloadData()
+            // }
             
-        })
-        
+        }, withCancel: nil)
     }
-    
-    func addToPersonalPost(id : Any, postInfo : NSDictionary) {
-        
-        if let userID = postInfo["userID"] as? String,
-            let caption = postInfo["caption"] as? String,
-            let profilePictureURL = postInfo["profileImageURL"] as? String,
-            let timeStamp = postInfo["timestamp"] as? String,
-            let postID = id as? String,
-//            let currentPostID = Int(postID),
-            let imagePostURL =  postInfo["postedImageURL"] as? String,
-            let username = postInfo["screenName"] as? String,
-            let location = postInfo["location"] as? String {
+    func fetchPhoto() {
+        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
             
-            let newPost = Photo(withAnId: postID, aUserID: userID, aUserName: username, aLocation: location, anImagePostURL: imagePostURL, anImageProfileURL: profilePictureURL, aCaption: caption, aTimeStamp: timeStamp)
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let photo = Photo(dictionary: dictionary)
+                photo.id = snapshot.key
+                
+                self.photos.append(photo)
+                //self.postsUsersIds.append(photo.userId!)????????????????????????????????????
+                print("postUserIdsArray: ",self.postsUsersIds)
+                
+                DispatchQueue.main.async(execute: {
+                    self.tableView.reloadData()
+                })
+                
+            }
             
-            self.picturePost.append(newPost)
-            
-        }
-        
+        }, withCancel: nil)
     }
-
 }
 
 
+
 extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return picturePost.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TimeLineTableViewCell.cellIdentifier) as? TimeLineTableViewCell
-        else { return UITableViewCell()}
-        
-        let currentPost = picturePost[indexPath.row]
-        
-        let picturePostURL = currentPost.imagePostURL
-        let profilePictureURL = currentPost.imageProfileURL
-        
-        cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profilePictureURL)
-        cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: picturePostURL)
-        cell.userNameLabel.text = currentPost.userName
-        cell.captionTextView.text = currentPost.caption
-    
-        
-         return cell
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return photos.count
         }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 600
-    }
-    
-    
-    }
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 550
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TimeLineTableViewCell.cellIdentifier, for: indexPath) as? TimeLineTableViewCell else {  return UITableViewCell()}
+            
+            let currentPost = photos[indexPath.row]
+            let postImageUrl = currentPost.postImageUrl
+            let userProfileImageUrl = currentPost.userProfileImageUrl
+            
+            cell.userNameLabel.text = currentPost.userName
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl!)
+            cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: postImageUrl!)
+            
+            //cell.captionTextView.text = photo.caption
+            //cell.callTapGesture()
+            cell.postIdentifier = currentPost.id
+            cell.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 300)
+            //cell.numberOflikes = post.numberOfLikes
+            
+            //        cell.observeLikesOnPost(post.id!)
+            //        print("postid in CellforRow   ",post.id!)
+            
+            //3 conform
+            //cell.delegate = self
+            //cell.updatepostLikesNumber(post.id!)
+            return cell
+        }
+        internal func likeImageIstapped() -> Bool {
+            return true
+        }
+}
 
 
 

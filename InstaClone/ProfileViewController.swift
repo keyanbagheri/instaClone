@@ -120,7 +120,7 @@ class ProfileViewController: UIViewController {
             
             
             // load the profile image
-            self.userImageView.loadImageUsingCacheWithUrlString(urlString: currentProfileUser.profileImageURL)
+            self.userImageView.loadImageUsingCacheWithUrlString(urlString: currentProfileUser.profileImageURL!)
             
             
             // load the user name
@@ -150,12 +150,12 @@ class ProfileViewController: UIViewController {
             
             for (k, v) in photos! {
                 
-                if let dictionary = v as? [String: String] {
-        
-                    // fix when uploading photos has been changed with actual data (not just imageURL)
-                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: dictionary["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
-                    self.photoList.append(newPhoto)
-                }
+//                if let dictionary = v as? [String: String] {
+//        
+//                    // fix when uploading photos has been changed with actual data (not just imageURL)
+//                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: dictionary["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
+//                    self.photoList.append(newPhoto)
+//                }
                 
             }
             
@@ -168,8 +168,6 @@ class ProfileViewController: UIViewController {
 }
 
 extension ProfileViewController : UICollectionViewDataSource {
-
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -181,7 +179,7 @@ extension ProfileViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCollectionViewCell", for: indexPath) as? PhotoCollectionViewCell else {return UICollectionViewCell()}
         
-        cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].imagePostURL)
+//        cell.imageView.loadImageUsingCacheWithUrlString(urlString: photoList[indexPath.row].imagePostURL)
         return cell
     }
     
