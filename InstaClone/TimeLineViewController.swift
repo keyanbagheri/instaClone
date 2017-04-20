@@ -32,6 +32,7 @@ class TimeLineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCurrentUserInfo()
         fetchUsers()
         fetchPhoto()
     }
@@ -74,6 +75,17 @@ class TimeLineViewController: UIViewController {
             }
             
         }, withCancel: nil)
+    }
+    
+    func getCurrentUserInfo () {
+        FIRDatabase.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
+            print("Value : " , snapshot)
+            
+            let dictionary = snapshot.value as? [String: Any]
+            
+            User.currentUser.updateUser(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["userName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
+        })
+        
     }
 }
 

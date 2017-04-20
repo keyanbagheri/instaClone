@@ -10,6 +10,8 @@ import Foundation
 
 class User {
 
+    static let currentUser = User()
+    
     var id: String?
     var email : String?
     var name : String?
@@ -43,5 +45,15 @@ class User {
         desc = "I'm using InstaClone"
         profileImageUrl = dictionary["profileImageUrl"] as? String
     }
+    
+    func updateUser(withAnId : String, anEmail : String, aName : String, aScreenName : String, aDesc : String, aProfileImageURL : String) {
+        id = withAnId
+        email = anEmail
+        name = aName
+        userName = aScreenName
+        desc = aDesc
+        profileImageUrl = aProfileImageURL
+    }
+    
     
 }
