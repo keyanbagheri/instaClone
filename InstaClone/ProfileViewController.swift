@@ -29,10 +29,6 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var button: UIButton!
     
-    
-    
-    
-    
     @IBOutlet weak var imageCollectionView: UICollectionView! {
         didSet {
             imageCollectionView.dataSource = self
@@ -42,15 +38,11 @@ class ProfileViewController: UIViewController {
     }
     
     var photoList : [Photo] = []
-    
     var ref: FIRDatabaseReference!
-    
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
-    
     var profileUserID = "3DqqiWKvSzPf2Lwy7WllKxOcOB83"
-    
     var isFollowed = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
@@ -58,6 +50,7 @@ class ProfileViewController: UIViewController {
         
         ref = FIRDatabase.database().reference()
         listenToFirebase()
+        checkIfUserIsLoggedIn()
         
         // make the profile picture have a round radius
         userImageView.layer.masksToBounds = false
@@ -70,9 +63,69 @@ class ProfileViewController: UIViewController {
         button.layer.borderColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0).cgColor
 
     }
+    func checkIfUserIsLoggedIn() {
+        if FIRAuth.auth()?.currentUser?.uid == nil {
+            perform(#selector(handleLogout), with: nil, afterDelay: 0)
+        } else {
+            fetchUserAndSetupNavBarTitle()
+        }
+    }
     
-    func handleLogout() {
+    func fetchUserAndSetupNavBarTitle() {
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else {
+            //for some reason uid = nil
+            return
+        }
+        FIRDatabase.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = User(dictionary: dictionary)
+                self.setupNavBarWithUser(user)
+            }
+        }, withCancel: nil)
+    }
+    
+    func setupNavBarWithUser(_ user: User) {
+        let titleView = UIView()
+        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        titleView.addSubview(containerView)
         
+        let profileImageView = UIImageView()
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.layer.cornerRadius = 20
+        profileImageView.clipsToBounds = true
+        if let profileImageUrl = user.profileImageUrl {
+            profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+        }
+        containerView.addSubview(profileImageView)
+        
+        //ios 9 constraint anchors
+        //need x,y,width,height anchors
+        profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        let nameLabel = UILabel()
+        containerView.addSubview(nameLabel)
+        nameLabel.text = user.name
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        //need x,y,width,height anchors
+        nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
+        nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+        
+        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        self.navigationItem.titleView = titleView
+        
+    }
+    func handleLogout() {
         do {
             try FIRAuth.auth()?.signOut()
         } catch let logoutError {
@@ -83,6 +136,7 @@ class ProfileViewController: UIViewController {
         let initController = currentStoryboard.instantiateViewController(withIdentifier: "LogInViewController")
         present(initController, animated: true, completion: nil)
     }
+ /*-------------------------------------------*/
     
     func followUser() {
         // ADD CODE TO FOLLOW A USER
@@ -114,14 +168,13 @@ class ProfileViewController: UIViewController {
     }
     
     func listenToFirebase() {
-        
         ref.child("users").child(profileUserID).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
             let dictionary = snapshot.value as? [String: Any]
             
             let currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["userName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
-            
+        
             self.ref.child("users").child((self.currentUser?.uid)!).child("following").child(self.profileUserID).observe(.value, with: { (instance) in
                 print(instance)
                 
@@ -130,14 +183,11 @@ class ProfileViewController: UIViewController {
                     self.button.setTitle("Following", for: .normal)
                 }
             })
-            
             // load screen name in nav bar
             self.navigationItem.title = currentProfileUser.userName
             
-            
             // load the profile image
             self.userImageView.loadImageUsingCacheWithUrlString(urlString: currentProfileUser.profileImageUrl!)
-            
             
             // load the user name
             self.userNameLabel.text = currentProfileUser.name
@@ -154,7 +204,6 @@ class ProfileViewController: UIViewController {
                 self.button.setTitle("Edit Profile", for: .normal)
                 self.button.addTarget(self, action: #selector(self.editProfile), for: .touchUpInside)
             }
-            
             self.wholeView.isHidden = false
 
         })
@@ -172,15 +221,10 @@ class ProfileViewController: UIViewController {
 //                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: dictionary["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
 //                    self.photoList.append(newPhoto)
 //                }
-                
             }
-            
             self.imageCollectionView.reloadData()
         })
-
-        
     }
-
 }
 
 extension ProfileViewController : UICollectionViewDataSource {
@@ -210,8 +254,6 @@ extension ProfileViewController : UICollectionViewDataSource {
 //        navigationController?.pushViewController(controller, animated: true)
     }
 }
-
-
 extension ProfileViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -225,12 +267,9 @@ extension ProfileViewController : UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets.zero
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
-    
       func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat
       {
         return 0

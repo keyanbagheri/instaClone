@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		216D032A1EA84CCA0024629A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216D03291EA84CCA0024629A /* Extensions.swift */; };
 		21B8A0AB1EA474B400E48200 /* FacebookLogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */; };
 		21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AD1EA482AD00E48200 /* Instagram.swift */; };
 		21B8A0B11EA4C08600E48200 /* TimeLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B8A0AF1EA4C08600E48200 /* TimeLineTableViewCell.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		216D03291EA84CCA0024629A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		21B8A0AA1EA474B400E48200 /* FacebookLogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookLogInViewController.swift; sourceTree = "<group>"; };
 		21B8A0AD1EA482AD00E48200 /* Instagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
 		21B8A0AF1EA4C08600E48200 /* TimeLineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLineTableViewCell.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				67C5D5F11EA240DF008C2535 /* User.swift */,
 				67FAFB861EA4A9020025C03C /* Photo.swift */,
 				21B8A0AD1EA482AD00E48200 /* Instagram.swift */,
+				216D03291EA84CCA0024629A /* Extensions.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */,
 				21B8A0B81EA5C65600E48200 /* TimeLineViewController.swift in Sources */,
 				21FAEC581EA7107C009C7B48 /* NewPostTableViewController.swift in Sources */,
+				216D032A1EA84CCA0024629A /* Extensions.swift in Sources */,
 				21FAEC561EA64C4D009C7B48 /* UploadImageViewController.swift in Sources */,
 				21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */,
 				6762A8311EA6205E00C844EB /* SearchViewController.swift in Sources */,
