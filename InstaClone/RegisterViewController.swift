@@ -70,7 +70,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         return
                     }
                     if let profileImageUrl = metadata?.downloadURL()?.absoluteString {
-                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl]
+                        let values = ["name": name, "email": email, "profileImageUrl": profileImageUrl, "desc": "...", "userName": name]
                         self.registerUserIntoDatabaseWithUID(uid: uid, values: values as [String : AnyObject])
                     }
                 })
