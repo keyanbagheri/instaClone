@@ -24,9 +24,9 @@
 		6762A8311EA6205E00C844EB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6762A8301EA6205E00C844EB /* SearchViewController.swift */; };
 		6794BC8E1EA201C4008E0DA2 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6794BC8D1EA201C4008E0DA2 /* Auth.storyboard */; };
 		67C5D5F21EA240DF008C2535 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C5D5F11EA240DF008C2535 /* User.swift */; };
+		67FA416C1EA89ED40069428E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFB881EA4A9100025C03C /* ProfileViewController.swift */; };
 		67FAFB851EA4A8EB0025C03C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67FAFB831EA4A8EB0025C03C /* Main.storyboard */; };
 		67FAFB871EA4A9020025C03C /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFB861EA4A9020025C03C /* Photo.swift */; };
-		67FAFB891EA4A9100025C03C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFB881EA4A9100025C03C /* ProfileViewController.swift */; };
 		67FAFB8B1EA4A91E0025C03C /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAFB8A1EA4A91E0025C03C /* PhotoCollectionViewCell.swift */; };
 		AD32C4AB402FA78B5BBA5E2A /* Pods_InstaClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32285BEE87434148DF6C7AE8 /* Pods_InstaClone.framework */; };
 		CEC1C6591EA619F2004AD112 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC1C6571EA619F2004AD112 /* CommentsTableViewCell.swift */; };
@@ -92,6 +92,10 @@
 			isa = PBXGroup;
 			children = (
 				67FAFB8A1EA4A91E0025C03C /* PhotoCollectionViewCell.swift */,
+				CEC1C6571EA619F2004AD112 /* CommentsTableViewCell.swift */,
+				CEC1C6581EA619F2004AD112 /* CommentsTableViewCell.xib */,
+				21B8A0AF1EA4C08600E48200 /* TimeLineTableViewCell.swift */,
+				21B8A0B01EA4C08600E48200 /* TimeLineTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -101,11 +105,7 @@
 			children = (
 				6762A8301EA6205E00C844EB /* SearchViewController.swift */,
 				CEC1C65B1EA61C40004AD112 /* CommentsViewController.swift */,
-				CEC1C6571EA619F2004AD112 /* CommentsTableViewCell.swift */,
-				CEC1C6581EA619F2004AD112 /* CommentsTableViewCell.xib */,
 				67FAFB881EA4A9100025C03C /* ProfileViewController.swift */,
-				21B8A0AF1EA4C08600E48200 /* TimeLineTableViewCell.swift */,
-				21B8A0B01EA4C08600E48200 /* TimeLineTableViewCell.xib */,
 				21B8A0B71EA5C65600E48200 /* TimeLineViewController.swift */,
 				21B8A0B51EA5B41800E48200 /* EditProfileTableViewController.swift */,
 				21FAEC551EA64C4D009C7B48 /* UploadImageViewController.swift */,
@@ -314,6 +314,7 @@
 				21B8A0AB1EA474B400E48200 /* FacebookLogInViewController.swift in Sources */,
 				67331B041EA0BD1E00B0005A /* AppDelegate.swift in Sources */,
 				21B8A0B81EA5C65600E48200 /* TimeLineViewController.swift in Sources */,
+				67FA416C1EA89ED40069428E /* ProfileViewController.swift in Sources */,
 				21FAEC581EA7107C009C7B48 /* NewPostTableViewController.swift in Sources */,
 				21FAEC561EA64C4D009C7B48 /* UploadImageViewController.swift in Sources */,
 				21B8A0AE1EA482AE00E48200 /* Instagram.swift in Sources */,
@@ -322,7 +323,6 @@
 				21B8A0B11EA4C08600E48200 /* TimeLineTableViewCell.swift in Sources */,
 				21B8A0B61EA5B41800E48200 /* EditProfileTableViewController.swift in Sources */,
 				CEC1C6641EA73A72004AD112 /* Comment.swift in Sources */,
-				67FAFB891EA4A9100025C03C /* ProfileViewController.swift in Sources */,
 				CEC1C6591EA619F2004AD112 /* CommentsTableViewCell.swift in Sources */,
 				67C5D5F21EA240DF008C2535 /* User.swift in Sources */,
 				21E80CF51EA357500014A0BC /* RegisterViewController.swift in Sources */,

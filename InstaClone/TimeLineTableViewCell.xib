@@ -136,7 +136,7 @@
                 <outlet property="captionTextView" destination="tUG-th-8tt" id="y3a-i8-1vf"/>
                 <outlet property="likeButton" destination="eBW-B4-r7y" id="l6D-LJ-0lZ"/>
                 <outlet property="likesCounter" destination="hb8-Ve-rlq" id="XmC-aY-bV7"/>
-                <outlet property="postImageiew" destination="9tw-GY-zTw" id="usM-yQ-qQ5"/>
+                <outlet property="postImageView" destination="9tw-GY-zTw" id="OEy-wO-Z8m"/>
                 <outlet property="profileImageView" destination="hIZ-Ut-KsZ" id="afa-Lu-39r"/>
                 <outlet property="userNameLabel" destination="6r1-Wg-aFM" id="K1M-4u-iQZ"/>
             </connections>

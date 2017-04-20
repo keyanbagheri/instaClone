@@ -26,7 +26,7 @@ class TimeLineTableViewCell: UITableViewCell {
     
     @IBOutlet weak var userNameLabel: UILabel!
     
-    @IBOutlet weak var postImageiew: UIImageView!
+    @IBOutlet weak var postImageView: UIImageView!
     
     @IBOutlet weak var likeButton: UIButton!
     
@@ -39,6 +39,8 @@ class TimeLineTableViewCell: UITableViewCell {
     var likeButtonClicked = false
     var numberOfLikes = 0
 
+    var postUserId : String?
+    
     @IBAction func likeButtonTapped(_ sender: Any) {
         print("like button tapped!!!")
         likeButtonClicked = true
@@ -73,8 +75,23 @@ class TimeLineTableViewCell: UITableViewCell {
     func handleImage(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleLike))
         tap.numberOfTapsRequired = 2
-        self.addGestureRecognizer(tap)
-        self.isUserInteractionEnabled = true
+        postImageView.addGestureRecognizer(tap)
+        postImageView.isUserInteractionEnabled = true
+    }
+    
+    func handleGoToProfile(){
+        let profileView = UITapGestureRecognizer(target: self, action: #selector(labelTapped(_:)))
+        userNameLabel.addGestureRecognizer(profileView)
+        userNameLabel.isUserInteractionEnabled = true
+    }
+    
+    func labelTapped(_ sender: UITapGestureRecognizer) {
+        // using notificaiton
+        
+        print(postUserId!)
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"OpenProfile"), object: nil, userInfo: ["profileID":postUserId!])
+        
     }
     
     var postIdentifier : String?
@@ -90,4 +107,11 @@ class TimeLineTableViewCell: UITableViewCell {
         
     }
     
+    
+    
 }
+
+protocol CustomCellDelegate {
+    func openProfile(_ profileID: String)
+}
+
