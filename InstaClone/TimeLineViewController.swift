@@ -21,6 +21,9 @@ class TimeLineViewController: UIViewController {
     var following = [String]()
     var lastPostID : Int = 0
     
+    @IBAction func cameraItemButtonTapped(_ sender: Any) {
+        self.tabBarController?.selectedIndex = 2
+    }
     @IBOutlet weak var tableView: UITableView!{
         didSet{
             tableView.delegate = self
@@ -33,6 +36,7 @@ class TimeLineViewController: UIViewController {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,12 +104,7 @@ class TimeLineViewController: UIViewController {
 
 
 extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return photos.count

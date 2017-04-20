@@ -30,9 +30,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var button: UIButton!
     
     
-    
-    
-    
     @IBOutlet weak var imageCollectionView: UICollectionView! {
         didSet {
             imageCollectionView.dataSource = self
@@ -81,7 +78,7 @@ class ProfileViewController: UIViewController {
         
         let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
         let initController = currentStoryboard.instantiateViewController(withIdentifier: "LogInViewController")
-        present(initController, animated: true, completion: nil) as? UINavigationController
+        present(initController, animated: true, completion: nil)
     }
     
     func followUser() {
@@ -110,6 +107,9 @@ class ProfileViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let controller = storyboard .instantiateViewController(withIdentifier: "EditProfileTableViewController") as?
             EditProfileTableViewController else { return }
+        if let selectedImage = userImageView.image {
+            controller.selectedImage = selectedImage
+        }
         navigationController?.pushViewController(controller, animated: true)
     }
     
@@ -216,7 +216,6 @@ extension ProfileViewController : UICollectionViewDataSource {
 //        navigationController?.pushViewController(controller, animated: true)
     }
 }
-
 
 extension ProfileViewController : UICollectionViewDelegateFlowLayout {
     

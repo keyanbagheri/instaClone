@@ -14,19 +14,72 @@ class NewPostTableViewController: UITableViewController {
     var userName = ""
     var userProfilePicture = ""
     var postIsLiked = false
+    var selectedPostID = ""
     var numberOfPostLikes = 0
+    
+    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
+    var currentUserName : String = ""
+    var currentUserID : String = ""
+    var profileImageUrl : String = ""
+    var comments = [Comment]()
     
     @IBOutlet weak var pickedImageView: UIImageView!
     
-    @IBOutlet weak var captionTextField: UITextView!
+    @IBOutlet weak var captionTextField: UITextView!{
+        didSet{
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(removePlaceholderText))
+            captionTextField.isUserInteractionEnabled = true
+            captionTextField.addGestureRecognizer(tapGestureRecognizer)
+            
+        }
+    }
+    
+    func removePlaceholderText() {
+        if captionTextField.text == "Write a caption..." {
+            captionTextField.text = ""
+            captionTextField.isUserInteractionEnabled = true
+            captionTextField.font = captionTextField.font?.withSize(12)
+            captionTextField.textColor = UIColor.black
+        } else {
+            return
+        }
+    }
 
     @IBAction func sharePost(_ sender: Any) {
         sharePost()
+        shareCaption()
+        //self.addToComments(id: snapshot.key, commentInfo: comments)
     }
+    
+    func shareCaption(){
+        let ref = FIRDatabase.database().reference().child("posts").childByAutoId().child("comments")
+        let childRef = ref.childByAutoId()
+        let values: [String: Any] = ["text": captionTextField.text! as String, "userName": currentUserName as String, "userId": currentUser!.uid, "timestamp": "\(NSNumber(value: Int(Date().timeIntervalSince1970)))", "userProfileImageUrl": profileImageUrl as String]
+        
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            //let recipientUserCommentsRef = FIRDatabase.database().reference().child("user-comments").child(toId)
+            //recipientUserCommentsRef.updateChildValues([commentId: 1])
+        }
+    }
+    func addToComments(id : String, commentInfo: NSDictionary) {
+        if let userName = commentInfo["userName"] as? String,
+            let userId = commentInfo["userId"] as? String,
+            let userProfileImageUrl = commentInfo["userProfileImageUrl"] as? String,
+            let text = commentInfo["text"] as? String,
+            let timestamp = commentInfo["timestamp"] as? String {
+            let newComment = Comment(withAnId: id, aUserId: userId, aUserName: userName, aUserProfileImageUrl: userProfileImageUrl, aText: text, aTimestamp: timestamp)
+            self.comments.append(newComment)
+        }
+    }
+    
     func sharePost(){
-//        if pickedImageView.image == UIImage(named: "ig"){
-//        }else{
-            //  guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
+        if pickedImageView.image == UIImage(named: "ig"){
+        }else{
+              guard (FIRAuth.auth()?.currentUser?.uid) != nil else {return}
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("postsImages").child("\(imageName).jpeg")
             
@@ -61,7 +114,7 @@ class NewPostTableViewController: UITableViewController {
                       //self.pickedImageView.image = UIImage(named: "ig")
             self.tabBarController?.selectedIndex = 0
             self.navigationController?.popToRootViewController(animated: true)  
-//        }
+       }
     }
     
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
