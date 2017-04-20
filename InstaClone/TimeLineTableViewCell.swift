@@ -24,23 +24,49 @@ class TimeLineTableViewCell: UITableViewCell {
     
     @IBOutlet weak var postImageiew: UIImageView!
     
+    @IBOutlet weak var likeButton: UIButton!
     
     @IBOutlet weak var captionTextView: UITextView!
     
     @IBOutlet weak var likesCounter: UILabel!
     
+    var isLiked  = false
+    var likeButtonClicked = false
+    var numberOfLikes = 0
     
     @IBAction func likeButtonTapped(_ sender: Any) {
+        print("like button tapped!!!")
+        likeButtonClicked = true
+        handleLike()
+    }
+    
+    func handleLike () {
+        print(likeButtonClicked)
+        if isLiked && !likeButtonClicked { return }
         
+        isLiked = !isLiked
+        print(isLiked)
+        if isLiked {
+            likeButton.setImage(#imageLiteral(resourceName: "love"), for: .normal)
+        } else {
+            likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
+        }
+        
+        likeButtonClicked = false
     }
     
     @IBAction func commentButtonTapped(_ sender: Any) {
     }
     
+    func handleImage(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleLike))
+        tap.numberOfTapsRequired = 2
+        self.addGestureRecognizer(tap)
+        self.isUserInteractionEnabled = true
+    }
     
     var postIdentifier : String?
     var numberOflikes = Int()
-    var likeIsTapped  = false
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
