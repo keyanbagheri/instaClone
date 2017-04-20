@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController {
     
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
     
-    var profileUserID = "3DqqiWKvSzPf2Lwy7WllKxOcOB83"
+    var profileUserID = ""
     
     var isFollowed = false
 
@@ -81,7 +81,7 @@ class ProfileViewController: UIViewController {
         
         let currentStoryboard = UIStoryboard (name: "Auth", bundle: Bundle.main)
         let initController = currentStoryboard.instantiateViewController(withIdentifier: "LogInViewController")
-        present(initController, animated: true, completion: nil)
+        present(initController, animated: true, completion: nil) as? UINavigationController
     }
     
     func followUser() {
@@ -114,6 +114,10 @@ class ProfileViewController: UIViewController {
     }
     
     func listenToFirebase() {
+        
+        if profileUserID == "" {
+            profileUserID = (currentUser?.uid)!
+        }
         
         ref.child("users").child(profileUserID).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
@@ -163,20 +167,21 @@ class ProfileViewController: UIViewController {
         ref.child("users").child(profileUserID).child("photos").observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
-            let photos = snapshot.value as? [String: Any]
-            
-            for (k, v) in photos! {
+            if let photos = snapshot.value as? [String: Any] {
+                for (k, v) in photos {
+                    
+                    //                if let dictionary = v as? [String: String] {
+                    //
+                    //                    // fix when uploading photos has been changed with actual data (not just imageURL)
+                    //                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: dictionary["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
+                    //                    self.photoList.append(newPhoto)
+                    //                }
+                    
+                }
                 
-//                if let dictionary = v as? [String: String] {
-//        
-//                    // fix when uploading photos has been changed with actual data (not just imageURL)
-//                    let newPhoto = Photo(withAnId: k, aUserID: "", aUserName: "", aLocation: "", anImagePostURL: dictionary["imageURL"]!, anImageProfileURL: "", aCaption: "",  aTimeStamp: "")
-//                    self.photoList.append(newPhoto)
-//                }
-                
+                self.imageCollectionView.reloadData()
             }
             
-            self.imageCollectionView.reloadData()
         })
 
         

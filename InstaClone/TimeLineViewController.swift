@@ -91,47 +91,67 @@ class TimeLineViewController: UIViewController {
 
 
 
-extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
-        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return photos.count
-        }
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 550
+extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: Notification.Name(rawValue:"OpenProfile"), object: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return photos.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 550
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TimeLineTableViewCell.cellIdentifier, for: indexPath) as? TimeLineTableViewCell else {  return UITableViewCell()}
+        
+        
+        let currentPost = photos[indexPath.row]
+        let postImageUrl = currentPost.postImageUrl
+        let userProfileImageUrl = currentPost.userProfileImageUrl
+        
+        cell.delegate = self
+        cell.photo = currentPost
+        
+        cell.userNameLabel.text = currentPost.userName
+        cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl!)
+        cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: postImageUrl!)
+        
+        //cell.captionTextView.text = photo.caption
+        //cell.callTapGesture()
+        cell.postIdentifier = currentPost.id
+        cell.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 300)
+        //cell.numberOflikes = post.numberOfLikes
+        
+        //        cell.observeLikesOnPost(post.id!)
+        //        print("postid in CellforRow   ",post.id!)
+        
+        //3 conform
+        //cell.delegate = self
+        //cell.updatepostLikesNumber(post.id!)
+        cell.handleImage()
+        cell.handleGoToProfile()
+        return cell
+    }
+    internal func likeImageIstapped() -> Bool {
+        return true
+    }
+    // navigate to profile screen
+    func displayProfileScreen(){}
+    
+    func handleNotification(_ notification: NSNotification){
+        if let profileID = notification.userInfo?["profileID"] as? String {
+            // ADD CODE TO GO TO EDIT PROFILE VIEW
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let controller = storyboard .instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController else { return }
+            controller.profileUserID = profileID
+            navigationController?.pushViewController(controller, animated: true)
         }
         
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TimeLineTableViewCell.cellIdentifier, for: indexPath) as? TimeLineTableViewCell else {  return UITableViewCell()}
-            
-            
-            let currentPost = photos[indexPath.row]
-            let postImageUrl = currentPost.postImageUrl
-            let userProfileImageUrl = currentPost.userProfileImageUrl
-            
-            cell.delegate = self
-            cell.photo = currentPost
-            
-            cell.userNameLabel.text = currentPost.userName
-            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl!)
-            cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: postImageUrl!)
-            
-            //cell.captionTextView.text = photo.caption
-            //cell.callTapGesture()
-            cell.postIdentifier = currentPost.id
-            cell.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 300)
-            //cell.numberOflikes = post.numberOfLikes
-            
-            //        cell.observeLikesOnPost(post.id!)
-            //        print("postid in CellforRow   ",post.id!)
-            
-            //3 conform
-            //cell.delegate = self
-            //cell.updatepostLikesNumber(post.id!)
-            cell.handleImage()
-            return cell
-        }
-        internal func likeImageIstapped() -> Bool {
-            return true
-        }
+    }
 }
 
 extension TimeLineViewController : MyCellProtocol {
@@ -146,10 +166,3 @@ extension TimeLineViewController : MyCellProtocol {
     
     
 }
-
-
-
-
-
-
-
