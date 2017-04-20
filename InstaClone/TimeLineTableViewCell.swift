@@ -8,8 +8,12 @@
 
 import UIKit
 
+protocol MyCellProtocol {
+    func didTapOnComment (_ post: Photo)
+}
 class TimeLineTableViewCell: UITableViewCell {
-
+    var delegate : MyCellProtocol? = nil
+    var photo : Photo?
     static let cellIdentifier = "TimeLineTableViewCell"
     static let cellNib = UINib(nibName: TimeLineTableViewCell.cellIdentifier, bundle: Bundle.main)
     
@@ -30,10 +34,11 @@ class TimeLineTableViewCell: UITableViewCell {
     
     @IBOutlet weak var likesCounter: UILabel!
     
+
     var isLiked  = false
     var likeButtonClicked = false
     var numberOfLikes = 0
-    
+
     @IBAction func likeButtonTapped(_ sender: Any) {
         print("like button tapped!!!")
         likeButtonClicked = true
@@ -56,8 +61,15 @@ class TimeLineTableViewCell: UITableViewCell {
     }
     
     @IBAction func commentButtonTapped(_ sender: Any) {
+        if delegate != nil {
+            if let _photo = photo {
+                delegate?.didTapOnComment(_photo)
+            }
+        }
+
     }
     
+
     func handleImage(){
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleLike))
         tap.numberOfTapsRequired = 2

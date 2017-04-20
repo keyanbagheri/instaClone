@@ -11,7 +11,9 @@ import FirebaseAuth
 import Firebase
 import FirebaseDatabase
 
+
 class CommentsViewController: UIViewController {
+    
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var commentsTableView: UITableView! {
         didSet{
@@ -21,8 +23,16 @@ class CommentsViewController: UIViewController {
             commentsTableView.register(CommentsTableViewCell.cellNib, forCellReuseIdentifier: CommentsTableViewCell.cellIdentifier)
         }
     }
+    
+    var selectedPost : Photo?
+    var selectedPostID : String = ""
+    
+    
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
-    var currentUserName = "Anonymous"
+    var currentUserName : String = ""
+    var currentUserID : String = ""
+    var profileImageUrl : String = ""
+    
     
     var comments = [Comment]()
     
@@ -32,6 +42,8 @@ class CommentsViewController: UIViewController {
         super.viewDidLoad()
         //set value for user
         ref = FIRDatabase.database().reference()
+        setCurrentUserAndPostID()
+        
         observeComments()
     }
     
@@ -39,26 +51,32 @@ class CommentsViewController: UIViewController {
         handleSend()
     }
     
+    func setCurrentUserAndPostID() {
+        if let id = currentUser?.uid {
+            print(id)
+            currentUserID = id
+        }
+        
+        self.ref.child("users").child(currentUserID).observe(.value, with: { (userSS) in
+            print("Value : " , userSS)
+            
+            let dictionary = userSS.value as? [String: Any]
+            
+            self.currentUserName = (dictionary?["userName"])! as! String
+            self.profileImageUrl = (dictionary?["profileImageUrl"])! as! String
+            
+        })
+        
+        if let postID = selectedPost?.id {
+            selectedPostID = postID
+        }
+        
+    }
     
-//    var user: User? {
-//        didSet {
-//            observeComments()
-//        }
-//    }
-//
-//    func getUserName () {
-//        ref.child("users").child((currentUser?.uid)!).observe(.value, with: { (snapshot) in
-//            print("Value : " , snapshot)
-//            
-//            let dictionary = snapshot.value as? [String: Any]
-//            if let userName = dictionary?["userName"] as? String {
-//                self.currentUserName = userName
-//            }
-//        })
-//    }
+
     
     func observeComments() {
-        ref.child("posts").child("-Ki3oZKYFTDAFp49sve_").child("comments").observe(.childAdded, with: { (snapshot) in
+        ref.child("posts").child("\(selectedPostID)").child("comments").observe(.childAdded, with: { (snapshot) in
             print(snapshot)
             
             guard let comments = snapshot.value as? NSDictionary else {return}
@@ -78,9 +96,9 @@ class CommentsViewController: UIViewController {
     
     
     func handleSend() {
-        let ref = FIRDatabase.database().reference().child("posts").child("-Ki3oZKYFTDAFp49sve_").child("comments")
+        let ref = FIRDatabase.database().reference().child("posts").child("\(selectedPostID)").child("comments")
         let childRef = ref.childByAutoId()
-        let values: [String: Any] = ["text": commentTextField.text! as String, "userName": currentUserName as String, "userId": "3DqqiWKvSzPf2Lwy7WllKxOcOB83", "timestamp": "\(NSNumber(value: Int(Date().timeIntervalSince1970)))"]
+        let values: [String: Any] = ["text": commentTextField.text! as String, "userName": currentUserName as String, "userId": currentUser!.uid, "timestamp": "\(NSNumber(value: Int(Date().timeIntervalSince1970)))", "userProfileImageUrl": profileImageUrl as String]
         
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
