@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 class CommentsTableViewCell: UITableViewCell {
     static let cellIdentifier = "CommentsTableViewCell"
     static let cellNib = UINib(nibName: CommentsTableViewCell.cellIdentifier, bundle: Bundle.main)

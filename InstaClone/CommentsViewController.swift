@@ -11,7 +11,9 @@ import FirebaseAuth
 import Firebase
 import FirebaseDatabase
 
+
 class CommentsViewController: UIViewController {
+    
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var commentsTableView: UITableView! {
         didSet{
@@ -21,6 +23,10 @@ class CommentsViewController: UIViewController {
             commentsTableView.register(CommentsTableViewCell.cellNib, forCellReuseIdentifier: CommentsTableViewCell.cellIdentifier)
         }
     }
+    
+    var selectedPost : Photo?
+    
+    
     var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
     var currentUserName = "Anonymous"
     

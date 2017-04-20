@@ -102,9 +102,13 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TimeLineTableViewCell.cellIdentifier, for: indexPath) as? TimeLineTableViewCell else {  return UITableViewCell()}
             
+            
             let currentPost = photos[indexPath.row]
             let postImageUrl = currentPost.postImageUrl
             let userProfileImageUrl = currentPost.userProfileImageUrl
+            
+            cell.delegate = self
+            cell.photo = currentPost
             
             cell.userNameLabel.text = currentPost.userName
             cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl!)
@@ -128,6 +132,19 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
         internal func likeImageIstapped() -> Bool {
             return true
         }
+}
+
+extension TimeLineViewController : MyCellProtocol {
+    
+    func didTapOnComment(_ post: Photo) {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let controller = storyboard .instantiateViewController(withIdentifier: "CommentsViewController") as?
+            CommentsViewController else { return }
+        controller.selectedPost = post
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    
 }
 
 
