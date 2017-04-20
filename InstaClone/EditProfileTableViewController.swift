@@ -44,6 +44,5 @@ class EditProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
+}
 }

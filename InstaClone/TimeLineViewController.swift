@@ -29,6 +29,10 @@ class TimeLineViewController: UIViewController {
             tableView.register(TimeLineTableViewCell.cellNib, forCellReuseIdentifier: TimeLineTableViewCell.cellIdentifier)
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,16 +96,15 @@ class TimeLineViewController: UIViewController {
     }
 
 }
-
+ 
 
 
 extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
         super.viewWillAppear(animated)
-
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
