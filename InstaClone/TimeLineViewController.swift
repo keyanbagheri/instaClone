@@ -32,6 +32,9 @@ class TimeLineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: Notification.Name(rawValue:"OpenProfile"), object: nil)
+        
         getCurrentUserInfo()
         fetchUsers()
         fetchPhoto()
@@ -93,9 +96,11 @@ class TimeLineViewController: UIViewController {
 
 extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
     
+    
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: Notification.Name(rawValue:"OpenProfile"), object: nil)
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -118,7 +123,7 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.userNameLabel.text = currentPost.userName
         cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: userProfileImageUrl!)
-        cell.postImageiew.loadImageUsingCacheWithUrlString(urlString: postImageUrl!)
+        cell.postImageView.loadImageUsingCacheWithUrlString(urlString: postImageUrl!)
         
         //cell.captionTextView.text = photo.caption
         //cell.callTapGesture()
@@ -132,6 +137,7 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
         //3 conform
         //cell.delegate = self
         //cell.updatepostLikesNumber(post.id!)
+        cell.postUserId = currentPost.userId
         cell.handleImage()
         cell.handleGoToProfile()
         return cell
@@ -143,6 +149,7 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
     func displayProfileScreen(){}
     
     func handleNotification(_ notification: NSNotification){
+        print(notification)
         if let profileID = notification.userInfo?["profileID"] as? String {
             // ADD CODE TO GO TO EDIT PROFILE VIEW
             let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -160,7 +167,6 @@ extension TimeLineViewController : MyCellProtocol {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let controller = storyboard .instantiateViewController(withIdentifier: "CommentsViewController") as?
             CommentsViewController else { return }
-        controller.selectedPost = post
         navigationController?.pushViewController(controller, animated: true)
     }
     
