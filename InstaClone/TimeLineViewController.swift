@@ -122,6 +122,7 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource{
             //3 conform
             //cell.delegate = self
             //cell.updatepostLikesNumber(post.id!)
+            cell.handleImage()
             return cell
         }
         internal func likeImageIstapped() -> Bool {
