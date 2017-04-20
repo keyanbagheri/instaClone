@@ -111,14 +111,16 @@ extension SearchViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("PHOTO SELECTED")
+        print(photoList[indexPath.row].postImageUrl)
         
-        //        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        //        guard let controller = storyboard .instantiateViewController(withIdentifier: "PhotoShowController") as?
-        //            PhotoShowController else { return }
-        //
-        //        controller.currentPhoto = photoList[indexPath.row]
-        //
-        //        navigationController?.pushViewController(controller, animated: true)
+//        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+//        guard let controller = storyboard .instantiateViewController(withIdentifier: "TimeLineViewController") as?
+//            TimeLineViewController else { return }
+//
+//        controller.photos = [photoList[indexPath.row]]
+//
+//        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
