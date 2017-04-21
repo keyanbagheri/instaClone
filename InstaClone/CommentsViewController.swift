@@ -12,7 +12,7 @@ import Firebase
 import FirebaseDatabase
 
 
-class CommentsViewController: UIViewController {
+class CommentsViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var commentTextField: UITextField!
     @IBOutlet weak var commentsTableView: UITableView! {
@@ -38,13 +38,47 @@ class CommentsViewController: UIViewController {
     
     var ref: FIRDatabaseReference!
     
+    func clearTextFieldText(){
+        commentTextField.text = ""
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //set value for user
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
         ref = FIRDatabase.database().reference()
         setCurrentUserAndPostID()
-        
+        commentTextField.delegate = self
         observeComments()
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height - 49
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height - 49
+            }
+        }
+    }
+    
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
+    
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
     }
     
     @IBAction func postButtonTapped(_ sender: Any) {
@@ -107,6 +141,7 @@ class CommentsViewController: UIViewController {
             }
             //let recipientUserCommentsRef = FIRDatabase.database().reference().child("user-comments").child(toId)
             //recipientUserCommentsRef.updateChildValues([commentId: 1])
+            self.clearTextFieldText()
         }
     }
     
@@ -128,6 +163,9 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 52
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentsTableViewCell.cellIdentifier) as? CommentsTableViewCell
@@ -136,7 +174,7 @@ extension CommentsViewController: UITableViewDelegate, UITableViewDataSource{
         let profilePicURL = currentComment.userProfileImageUrl
         cell.commentsTextView.text = currentComment.text
         cell.usernameLabel.text = currentComment.userName
-        cell.imageView?.loadImageUsingCacheWithUrlString(urlString: profilePicURL!)
+        cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profilePicURL!)
         return cell
     }
 }

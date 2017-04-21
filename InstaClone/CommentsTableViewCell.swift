@@ -19,7 +19,11 @@ class CommentsTableViewCell: UITableViewCell {
             profileImageView.layer.masksToBounds = true
         }
     }
-    @IBOutlet weak var commentsTextView: UITextView!
+    @IBOutlet weak var commentsTextView: UITextView!{
+        didSet{
+            self.isUserInteractionEnabled = false
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
