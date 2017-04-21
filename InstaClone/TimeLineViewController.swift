@@ -7,19 +7,20 @@
 //
 
 import UIKit
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseDatabase
 import FirebaseStorage
 
 class TimeLineViewController: UIViewController {
 
     var filteredPhotoFeed: [Photo] = []
     var photos = [Photo]()
-    var uid = FIRAuth.auth()?.currentUser?.uid
-    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
+    var uid : String?
+    var currentUser = User.currentUser
     var postsUsersIds = [String].self
     var following = [String]()
     var lastPostID : Int = 0
+    var ref: FIRDatabaseReference!
     
     @IBAction func cameraItemButtonTapped(_ sender: Any) {
         self.tabBarController?.selectedIndex = 2
@@ -45,12 +46,18 @@ class TimeLineViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(goToComments(_:)), name: Notification.Name(rawValue:"OpenComments"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(like(_:)), name: Notification.Name(rawValue:"Like"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(unlike(_:)), name: Notification.Name(rawValue:"Unlike"), object: nil)
+        
+        uid = FIRAuth.auth()?.currentUser?.uid
+        ref = FIRDatabase.database().reference()
         getCurrentUserInfo()
         fetchUsers()
         fetchPhoto()
     }
     func fetchUsers() {
-        FIRDatabase.database().reference().child("users").child(uid!).child("following").observe(.value, with: { (snapshot) in
+        ref.child("users").child(uid!).child("following").observe(.value, with: { (snapshot) in
             
             //   if let dictionary = snapshot.value as? [String: AnyObject] {
             //                 let user = User(dictionary: dictionary)
@@ -70,7 +77,7 @@ class TimeLineViewController: UIViewController {
         }, withCancel: nil)
     }
     func fetchPhoto() {
-        FIRDatabase.database().reference().child("posts").observe(.childAdded, with: { (snapshot) in
+        ref.child("posts").observe(.childAdded, with: { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let photo = Photo(dictionary: dictionary)
@@ -91,7 +98,8 @@ class TimeLineViewController: UIViewController {
     }
     
     func getCurrentUserInfo () {
-        FIRDatabase.database().reference().child("users").child(uid!).observe(.value, with: { (snapshot) in
+        
+        ref.child("users").child(uid!).observe(.value, with: { (snapshot) in
             print("Value : " , snapshot)
             
             let dictionary = snapshot.value as? [String: Any]
@@ -122,6 +130,19 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
         let currentPost = photos[indexPath.row]
         let postImageUrl = currentPost.postImageUrl
         let userProfileImageUrl = currentPost.userProfileImageUrl
+        
+        ref.child("posts").child("\(currentPost.id)").child("likes").observe(.value, with: { (snapshot) in
+            
+            if snapshot.exists() {
+                let likes = snapshot.value as? [String: Any]
+                
+                cell.numberOfLikes = likes!.count
+                cell.likesCounter.text = "\(cell.numberOfLikes)"
+            } else {
+                cell.likesCounter.text = "0"
+            }
+            
+        })
         
         cell.photo = currentPost
         
@@ -173,6 +194,32 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
                 CommentsViewController else { return }
             controller.selectedPostID = postId
             navigationController?.pushViewController(controller, animated: true)
+        }
+        
+    }
+    func like(_ notification: NSNotification){
+        print(notification)
+        if let postId = notification.userInfo?["postID"] as? String {
+            // ADD Like TO GO TO post likes
+            let childRef = ref.child("posts").child("\(postId)").child("likes").child("\(uid!)")
+            let values: [String: Any] = ["userId": uid! as String]
+            
+            childRef.updateChildValues(values) { (error, ref) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                //let recipientUserCommentsRef = FIRDatabase.database().reference().child("user-comments").child(toId)
+                //recipientUserCommentsRef.updateChildValues([commentId: 1])
+            }
+        }
+        
+    }
+    func unlike(_ notification: NSNotification){
+        print(notification)
+        if let postId = notification.userInfo?["postID"] as? String {
+            // remove like from posts likes
+            ref.child("posts").child("\(postId)").child("\(uid!)").removeValue()
         }
         
     }
