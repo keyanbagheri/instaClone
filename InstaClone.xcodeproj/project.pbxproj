@@ -105,8 +105,8 @@
 			children = (
 				6762A8301EA6205E00C844EB /* SearchViewController.swift */,
 				CEC1C65B1EA61C40004AD112 /* CommentsViewController.swift */,
-				67FAFB881EA4A9100025C03C /* ProfileViewController.swift */,
 				21B8A0B71EA5C65600E48200 /* TimeLineViewController.swift */,
+				67FAFB881EA4A9100025C03C /* ProfileViewController.swift */,
 				21B8A0B51EA5B41800E48200 /* EditProfileTableViewController.swift */,
 				21FAEC551EA64C4D009C7B48 /* UploadImageViewController.swift */,
 				21FAEC571EA7107C009C7B48 /* NewPostTableViewController.swift */,

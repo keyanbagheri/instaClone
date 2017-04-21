@@ -67,6 +67,10 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hIZ-Ut-KsZ">
                         <rect key="frame" x="8" y="8" width="45" height="45"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="0I3-DV-iU6"/>
+                            <constraint firstAttribute="width" constant="45" id="FQT-hg-IXG"/>
+                        </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6r1-Wg-aFM">
                         <rect key="frame" x="56" y="8" width="73" height="35"/>
@@ -110,7 +114,6 @@
                     <constraint firstItem="eBW-B4-r7y" firstAttribute="top" secondItem="O9d-9l-X0L" secondAttribute="top" id="NGO-y0-Rmo"/>
                     <constraint firstItem="hIZ-Ut-KsZ" firstAttribute="top" secondItem="6r1-Wg-aFM" secondAttribute="top" id="PHa-T2-GFN"/>
                     <constraint firstItem="eBW-B4-r7y" firstAttribute="top" secondItem="9tw-GY-zTw" secondAttribute="bottom" constant="8" symbolic="YES" id="QlA-Il-Bcw"/>
-                    <constraint firstItem="9tw-GY-zTw" firstAttribute="top" secondItem="l8n-ua-T7K" secondAttribute="bottom" constant="8" symbolic="YES" id="Rlo-vC-IWf"/>
                     <constraint firstItem="9tw-GY-zTw" firstAttribute="top" secondItem="hIZ-Ut-KsZ" secondAttribute="bottom" constant="3" id="SEo-Mh-8Yn"/>
                     <constraint firstItem="6r1-Wg-aFM" firstAttribute="top" secondItem="l8n-ua-T7K" secondAttribute="top" id="UWT-L5-63U"/>
                     <constraint firstItem="hIZ-Ut-KsZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Vmc-SP-kAs"/>

@@ -11,22 +11,58 @@ import Firebase
 class NewPostTableViewController: UITableViewController {
     
     var selectedImage: UIImage!
-    var userName = ""
-    var userProfilePicture = ""
-    var postIsLiked = false
+    var selectedPostID = ""
     var numberOfPostLikes = 0
+    
+    var currentUser = User.currentUser
+    var profileImageUrl : String = ""
+    var comments = [Comment]()
+    var ref = FIRDatabase.database().reference()
     
     @IBOutlet weak var pickedImageView: UIImageView!
     
-    @IBOutlet weak var captionTextField: UITextView!
+    @IBOutlet weak var captionTextField: UITextView!{
+        didSet{
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(removePlaceholderText))
+            captionTextField.isUserInteractionEnabled = true
+            captionTextField.addGestureRecognizer(tapGestureRecognizer)
+            
+        }
+    }
+    
+    func removePlaceholderText() {
+        if captionTextField.text == "Write a caption..." {
+            captionTextField.text = ""
+            captionTextField.isUserInteractionEnabled = true
+            captionTextField.font = captionTextField.font?.withSize(12)
+            captionTextField.textColor = UIColor.black
+        } else {
+            return
+        }
+    }
 
     @IBAction func sharePost(_ sender: Any) {
+        ref = FIRDatabase.database().reference().child("posts").childByAutoId()
         sharePost()
     }
+    
+    func shareCaption(){
+        let childRef = ref.child("comments").childByAutoId()
+        let values: [String: Any] = ["text": captionTextField.text! as String, "userName": currentUser.name!, "userId": currentUser.id!, "timestamp": "\(NSNumber(value: Int(Date().timeIntervalSince1970)))", "userProfileImageUrl": currentUser.profileImageUrl! as String]
+        
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            //let recipientUserCommentsRef = FIRDatabase.database().reference().child("user-comments").child(toId)
+            //recipientUserCommentsRef.updateChildValues([commentId: 1])
+        }
+    }
+    
     func sharePost(){
-//        if pickedImageView.image == UIImage(named: "ig"){
-//        }else{
-            //  guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
+        if pickedImageView.image == UIImage(named: "ig"){
+        }else{
             let imageName = NSUUID().uuidString
             let storageRef = FIRStorage.storage().reference().child("postsImages").child("\(imageName).jpeg")
             
@@ -35,40 +71,27 @@ class NewPostTableViewController: UITableViewController {
             
             let metaData = FIRStorageMetadata()
             metaData.contentType = "image/jpeg"
+            
             storageRef.put(imageData, metadata: metaData, completion: { (metadata, error) in
                 if error != nil {
                     print("Image error: \(error ?? "" as! Error)")
                     return
                 }
-                if let photoImageUrl = metadata?.downloadURL()?.absoluteString {
-                    guard let userUid = FIRAuth.auth()?.currentUser?.uid else {return}
-                    FIRDatabase.database().reference().child("users").child(userUid).observe(.value, with: { (snapshot) in
-                        if let dictionary = snapshot.value as? [String: AnyObject] {
-                            let user = User(dictionary: dictionary)//User(withID: snapshot.key, dictionary: dictionary)
-                            user.id = snapshot.key
-                            guard let username = user.name, let pic = user.profileImageUrl else{return}
-                            self.userName = username
-                            self.userProfilePicture = pic
-                        }
-                        //TODO:Add the liked bool and Int
-                        let values = ["userId": userUid, "postImageUrl": photoImageUrl,"userName":self.userName, "userProfileImageURL":self.userProfilePicture, "likeImageIsTapped": self.postIsLiked, "numberOfLikes": self.numberOfPostLikes] as [String : Any]
-                        self.registerPostIntoDataBase(userUid, values: values as [String : AnyObject])
-                        
-                    }, withCancel: nil)
-                }
                 
+                if let photoImageUrl = metadata?.downloadURL()?.absoluteString {
+                    let values = ["userId": self.currentUser.id!, "postImageUrl": photoImageUrl,"userName":self.currentUser.userName, "userProfileImageURL":self.currentUser.profileImageUrl] as [String : Any]
+                    self.registerPostIntoDataBase(self.currentUser.id!, values: values as [String : AnyObject])
+                    self.shareCaption()
+                }
             })
                       //self.pickedImageView.image = UIImage(named: "ig")
             self.tabBarController?.selectedIndex = 0
             self.navigationController?.popToRootViewController(animated: true)  
-//        }
+       }
     }
     
     func registerPostIntoDataBase(_ uid: String, values: [String: Any]) {
-        let ref = FIRDatabase.database().reference(fromURL: "https://instaclone-abf88.firebaseio.com/")
-        let PostsReference = ref.child("posts").childByAutoId()
-        
-        PostsReference.updateChildValues(values, withCompletionBlock: { (err, ref) in
+        ref.updateChildValues(values, withCompletionBlock: { (err, ref) in
             
             if err != nil {
                 print("Error saving user: \(err ?? "" as! Error)")

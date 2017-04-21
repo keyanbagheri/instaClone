@@ -9,12 +9,15 @@
 import UIKit
 
 class EditProfileTableViewController: UITableViewController {
+    
+    var selectedImage: UIImage!
 
     @IBAction func cancelEditProfileButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneEditProfileButton(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
     
@@ -44,5 +47,6 @@ class EditProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        profilePhotoImage.image = selectedImage
 }
 }
