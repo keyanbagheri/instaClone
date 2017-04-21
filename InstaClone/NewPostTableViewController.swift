@@ -13,6 +13,7 @@ class NewPostTableViewController: UITableViewController {
     var selectedImage: UIImage!
     var selectedPostID = ""
     var numberOfPostLikes = 0
+    var imageURL = ""
     
     var currentUser = User.currentUser
     var profileImageUrl : String = ""
@@ -79,8 +80,10 @@ class NewPostTableViewController: UITableViewController {
                 }
                 
                 if let photoImageUrl = metadata?.downloadURL()?.absoluteString {
+                    self.imageURL = photoImageUrl
                     let values = ["userId": self.currentUser.id!, "postImageUrl": photoImageUrl,"userName":self.currentUser.userName, "userProfileImageURL":self.currentUser.profileImageUrl] as [String : Any]
                     self.registerPostIntoDataBase(self.currentUser.id!, values: values as [String : AnyObject])
+                    self.addToUsersPhotos()
                     self.shareCaption()
                 }
             })
@@ -98,6 +101,21 @@ class NewPostTableViewController: UITableViewController {
                 return
             }
         })
+    }
+    
+    func addToUsersPhotos() {
+        let userRef = FIRDatabase.database().reference().child("users").child(currentUser.id!).child("photos").child(ref.key)
+        let values: [String: String] = ["imageURL": imageURL as String]
+        
+        userRef.updateChildValues(values) { (error, ref) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            //let recipientUserCommentsRef = FIRDatabase.database().reference().child("user-comments").child(toId)
+            //recipientUserCommentsRef.updateChildValues([commentId: 1])
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

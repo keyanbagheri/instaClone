@@ -206,6 +206,7 @@ extension ProfileViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(photoList[indexPath.row].postImageUrl)
         
 //        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
 //        guard let controller = storyboard .instantiateViewController(withIdentifier: "PhotoShowController") as?
