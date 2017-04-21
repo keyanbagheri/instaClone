@@ -56,7 +56,13 @@ class TimeLineTableViewCell: UITableViewCell {
         print(isLiked)
         if isLiked {
             likeButton.setImage(#imageLiteral(resourceName: "love"), for: .normal)
+            numberOfLikes = numberOfLikes + 1
+            likesCounter.text = "\(numberOfLikes)"
+            NotificationCenter.default.post(name: Notification.Name(rawValue:"Like"), object: nil, userInfo: ["postID":postId!])
         } else {
+            NotificationCenter.default.post(name: Notification.Name(rawValue:"Unlike"), object: nil, userInfo: ["postID":postId!])
+            numberOfLikes = numberOfLikes - 1
+            likesCounter.text = "\(numberOfLikes)"
             likeButton.setImage(#imageLiteral(resourceName: "like"), for: .normal)
         }
         
@@ -104,8 +110,6 @@ class TimeLineTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        
     }
     
     
