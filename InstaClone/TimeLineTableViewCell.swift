@@ -40,6 +40,7 @@ class TimeLineTableViewCell: UITableViewCell {
     var numberOfLikes = 0
 
     var postUserId : String?
+    var postId: String?
     
     @IBAction func likeButtonTapped(_ sender: Any) {
         print("like button tapped!!!")
@@ -63,11 +64,11 @@ class TimeLineTableViewCell: UITableViewCell {
     }
     
     @IBAction func commentButtonTapped(_ sender: Any) {
-        if delegate != nil {
-            if let _photo = photo {
-                delegate?.didTapOnComment(_photo)
-            }
-        }
+        // using notificaiton
+        
+        print(postId!)
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"OpenComments"), object: nil, userInfo: ["postID":postId!])
 
     }
     

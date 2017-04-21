@@ -170,12 +170,12 @@ class ProfileViewController: UIViewController {
             if let photos = snapshot.value as? [String: Any] {
                 for (k, v) in photos {
                     
-                                    if let dictionary = v as? [String: String] {
-                    
-                                        // fix when uploading photos has been changed with actual data (not just imageURL)
-                                        let newPhoto = Photo(withAnId : k, aUserID : "", aUserName : "", aLocation : "", aPostImageURL : dictionary["imageURL"]!, aUserProfileImageURL : "", aTimeStamp : "")
-                                        self.photoList.append(newPhoto)
-                                    }
+                    if let dictionary = v as? [String: String] {
+    
+                        // fix when uploading photos has been changed with actual data (not just imageURL)
+                        let newPhoto = Photo(withAnId : k, aUserID : "", aUserName : "", aLocation : "", aPostImageURL : dictionary["imageURL"]!, aUserProfileImageURL : "", aTimeStamp : "")
+                        self.photoList.append(newPhoto)
+                    }
                     
                 }
                 

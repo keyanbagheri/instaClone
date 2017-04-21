@@ -41,7 +41,9 @@ class TimeLineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleNotification(_:)), name: Notification.Name(rawValue:"OpenProfile"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(goToProfile(_:)), name: Notification.Name(rawValue:"OpenProfile"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(goToComments(_:)), name: Notification.Name(rawValue:"OpenComments"), object: nil)
         
         getCurrentUserInfo()
         fetchUsers()
@@ -121,7 +123,6 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
         let postImageUrl = currentPost.postImageUrl
         let userProfileImageUrl = currentPost.userProfileImageUrl
         
-        cell.delegate = self
         cell.photo = currentPost
         
         cell.userNameLabel.text = currentPost.userName
@@ -141,6 +142,7 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
         //cell.delegate = self
         //cell.updatepostLikesNumber(post.id!)
         cell.postUserId = currentPost.userId
+        cell.postId = currentPost.id
         cell.handleImage()
         cell.handleGoToProfile()
         return cell
@@ -151,7 +153,7 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
     // navigate to profile screen
     func displayProfileScreen(){}
     
-    func handleNotification(_ notification: NSNotification){
+    func goToProfile(_ notification: NSNotification){
         print(notification)
         if let profileID = notification.userInfo?["profileID"] as? String {
             // ADD CODE TO GO TO EDIT PROFILE VIEW
@@ -162,16 +164,17 @@ extension TimeLineViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
     }
+    func goToComments(_ notification: NSNotification){
+        print(notification)
+        if let postId = notification.userInfo?["postID"] as? String {
+            // ADD CODE TO GO TO Comments
+            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+            guard let controller = storyboard .instantiateViewController(withIdentifier: "CommentsViewController") as?
+                CommentsViewController else { return }
+            controller.selectedPostID = postId
+            navigationController?.pushViewController(controller, animated: true)
+        }
+        
+    }
 }
 
-extension TimeLineViewController : MyCellProtocol {
-    
-    func didTapOnComment(_ post: Photo) {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        guard let controller = storyboard .instantiateViewController(withIdentifier: "CommentsViewController") as?
-            CommentsViewController else { return }
-        navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    
-}
