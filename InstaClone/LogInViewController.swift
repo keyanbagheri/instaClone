@@ -9,11 +9,15 @@
 import UIKit
 import Firebase
 
+
 class LogInViewController: UIViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var wholeView: UIView!
 
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
+    
     
     @IBAction func logInButtonTapped(_ sender: Any) {
         handleLogin()
@@ -22,12 +26,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.wholeView.isHidden = true
         let tf = UITextField()
         tf.autocapitalizationType = .none
         emailTextField.delegate = self
         passwordTextField.delegate = self
         handleLogin()
+        let when = DispatchTime.now() + 0.0000000000000000000000000001 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            // Your code with delay
+            self.checkIfLoggedIn()
+        }
+        
     }
+ 
     
     func handleLogin() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
@@ -63,6 +75,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
+    }
+    
+    func checkIfLoggedIn () {
+        if (FIRAuth.auth()?.currentUser) != nil {
+            print("Some user already logged in")
+            goToNextVC()
+        } else {
+            self.wholeView.isHidden = false
+        }
     }
     
     func goToNextVC(){
