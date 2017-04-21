@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController {
     
     var ref: FIRDatabaseReference!
     
-    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
+    var currentUser = User.currentUser
     
     var profileUserID = ""
     
@@ -65,6 +65,18 @@ class ProfileViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
         button.layer.borderColor = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0).cgColor
+        
+        // check if user profile is the same as current user
+        // if same button text = "Edit Profile"
+        // if not button text = "Follow"
+        print("current user id: \(currentUser.id!)")
+        print("profile user id: \(profileUserID)")
+        if self.profileUserID != self.currentUser.id! {
+            self.button.addTarget(self, action: #selector(self.followUser), for: .touchUpInside)
+        } else {
+            self.button.setTitle("Edit Profile", for: .normal)
+            self.button.addTarget(self, action: #selector(self.editProfile), for: .touchUpInside)
+        }
 
     }
     
@@ -84,18 +96,18 @@ class ProfileViewController: UIViewController {
     func followUser() {
         // ADD CODE TO FOLLOW A USER
         if isFollowed {
-            ref.child("users").child(profileUserID).child("followers").child((currentUser?.uid)!).removeValue()
-            ref.child("users").child((currentUser?.uid)!).child("following").child(profileUserID).removeValue()
+            ref.child("users").child(profileUserID).child("followers").child((currentUser.id)!).removeValue()
+            ref.child("users").child((currentUser.id)!).child("following").child(profileUserID).removeValue()
             
             self.button.setTitle("Follow", for: .normal)
         } else {
     
             let following : [String : String] = [profileUserID : "true"]
             
-            let follower : [String : String] = [currentUser!.uid : "true"]
+            let follower : [String : String] = [currentUser.id! : "true"]
             
             ref.child("users").child(profileUserID).child("followers").updateChildValues(follower)
-            ref.child("users").child((currentUser?.uid)!).child("following").updateChildValues(following)
+            ref.child("users").child((currentUser.id)!).child("following").updateChildValues(following)
             
             self.button.setTitle("Following", for: .normal)
         }
@@ -116,7 +128,7 @@ class ProfileViewController: UIViewController {
     func listenToFirebase() {
         
         if profileUserID == "" {
-            profileUserID = (currentUser?.uid)!
+            profileUserID = (currentUser.id)!
         }
         
         ref.child("users").child(profileUserID).observe(.value, with: { (snapshot) in
@@ -126,7 +138,7 @@ class ProfileViewController: UIViewController {
             
             let currentProfileUser = User(withAnId: (snapshot.key), anEmail: (dictionary?["email"])! as! String, aName: (dictionary?["name"])! as! String, aScreenName: (dictionary?["userName"])! as! String, aDesc: (dictionary?["desc"])! as! String, aProfileImageURL: (dictionary?["profileImageUrl"])! as! String)
             
-            self.ref.child("users").child((self.currentUser?.uid)!).child("following").child(self.profileUserID).observe(.value, with: { (instance) in
+            self.ref.child("users").child((self.currentUser.id)!).child("following").child(self.profileUserID).observe(.value, with: { (instance) in
                 print(instance)
                 
                 if instance.exists() {
@@ -149,16 +161,6 @@ class ProfileViewController: UIViewController {
             
             // load the user description
             self.userDescLabel.text = currentProfileUser.desc
-            
-            // check if user profile is the same as current user
-            // if same button text = "Edit Profile"
-            // if not button text = "Follow"
-            if currentProfileUser.id != self.currentUser?.uid {
-                self.button.addTarget(self, action: #selector(self.followUser), for: .touchUpInside)
-            } else {
-                self.button.setTitle("Edit Profile", for: .normal)
-                self.button.addTarget(self, action: #selector(self.editProfile), for: .touchUpInside)
-            }
             
             self.wholeView.isHidden = false
 
