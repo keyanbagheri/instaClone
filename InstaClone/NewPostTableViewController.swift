@@ -17,9 +17,10 @@ class NewPostTableViewController: UITableViewController {
     var selectedPostID = ""
     var numberOfPostLikes = 0
     
-    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
-    var currentUserName : String = ""
-    var currentUserID : String = ""
+//    var currentUser : FIRUser? = FIRAuth.auth()?.currentUser
+//    var currentUserName : String = ""
+//    var currentUserID : String = ""
+    var currentUserInfo = User.currentUser
     var profileImageUrl : String = ""
     var comments = [Comment]()
     
@@ -54,7 +55,7 @@ class NewPostTableViewController: UITableViewController {
     func shareCaption(){
         let ref = FIRDatabase.database().reference().child("posts").childByAutoId().child("comments")
         let childRef = ref.childByAutoId()
-        let values: [String: Any] = ["text": captionTextField.text! as String, "userName": currentUserName as String, "userId": currentUser!.uid, "timestamp": "\(NSNumber(value: Int(Date().timeIntervalSince1970)))", "userProfileImageUrl": profileImageUrl as String]
+        let values: [String: Any] = ["text": captionTextField.text! as String, "userName": currentUserInfo.name!, "userId": currentUserInfo.id!, "timestamp": "\(NSNumber(value: Int(Date().timeIntervalSince1970)))", "userProfileImageUrl": profileImageUrl as String]
         
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil {
