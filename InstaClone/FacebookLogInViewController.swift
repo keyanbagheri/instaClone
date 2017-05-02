@@ -7,13 +7,32 @@
 //
 
 import UIKit
+import FBSDKLoginKit
+import Firebase
 
-class FacebookLogInViewController: UIViewController {
 
+class FacebookLogInViewController: UIViewController, FBSDKLoginButtonDelegate {
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let loginButton = FBSDKLoginButton()
+        view.addSubview(loginButton)
+        loginButton.frame = CGRect(x: 16, y: 190, width: view.frame.width - 32, height: 50)
+        loginButton.delegate = self
 
-        // Do any additional setup after loading the view.
+    }
+
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("did logout from FB")
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if error != nil{
+            print(error)
+            return
+        }
+        print("successfully logged")
     }
 
     @IBAction func signInButton(_ sender: Any) {
